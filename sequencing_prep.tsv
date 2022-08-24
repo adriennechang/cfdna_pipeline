@@ -1,0 +1,2 @@
+sample_id	project_id	prep_type	path	genome_ver	seq_type
+CFS-BS-U-gemus0859	test_bisulfite	SRSLY	data/	hg19	bisulfite

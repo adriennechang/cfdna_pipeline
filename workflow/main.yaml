@@ -1,0 +1,112 @@
+### LOCATIIONS ###
+MASTER_PATH: /workdir/ac2763/cfDNA_pipeline/
+DATA: data/
+OUTPUT: results/
+SEQ_PREP_TABLE: sequencing_prep.tsv
+CONVERSION: ['std','GA','CT']
+GENOMES: ['hg19','hg38']
+
+METHYLOME_TABLE: reference_methylomes.tsv
+
+### REFERENCES ###
+HG19: references/hg19/bwa/hg19.fa
+HG19_CHROMO_SIZES: references/hg19/hg19.chrom.sizes
+HG38: references/hg38/bwa/hg38.fa
+HG38_CHROMO_SIZES: references/hg38/hg38.chrom.sizes 
+PHIX: references/phix/bwa/phiX.fa
+
+HG19STD: references/hg19/bowtie2
+HG19METH: references/hg19/bismark
+HG38STD: references/hg38/bowtie2
+HG38METH: references/hg38/bismark
+PHIXSTD: references/phix/bowtie2
+PHIXMETH: references/phix/bismark
+
+NCBI_06: references/NCBIGenomes06/blast/NCBIGenomes06.fna
+GI_TAXID_06: references/NCBIGenomes06/blast/NCBIGenomes06.gis.taxids
+GI_LENGTH_06: references/NCBIGenomes06/LUTGrammy/taxids_lengths.tab
+GDT_06: references/NCBIGenomes06/LUTGrammy/NCBIGenomes06
+LUT_06: references/NCBIGenomes06/LUTGrammy/taxids_names_lengths_tax.tab
+
+NCBI_22: references/NCBIGenomes22/std/NCBIGenomes22_std.fna
+GI_TAXID_22: references/NCBIGenomes22/NCBIGenomes22.acc.taxids
+GI_LENGTH_22: references/NCBIGenomes22/taxids_lengths.txt
+GDT_22: references/NCBIGenomes22/std/NCBIGenomes22_std
+LUT_22: references/NCBIGenomes22/LUT/taxids_names_lengths_tax.tab
+NCBI_GA: references/NCBIGenomes22/GA/NCBIGenomes22_GA.fna
+NCBI_CT: references/NCBIGenomes22/CT/NCBIGenomes22_CT.fna
+GDT_GA: references/NCBIGenomes22/GA/NCBIGenomes22_GA
+GDT_CT: references/NCBIGenomes22/CT/NCBIGenomes22_CT
+HUMAN_22: references/NCBIGenomes22/NCBIGenomes22.human.gis
+
+GOLDENBED_HG19: references/reference_methylomes/golden_markers_megaka.hg19.bed
+GOLDENBED_HG38: references/reference_methylomes/golden_markers_megaka.hg38.bed
+METHYLMATRIX_HG19: references/reference_methylomes/MethylMatrix_binned_megaka.hg19.txt
+METHYLMATRIX_HG38: references/reference_methylomes/MethylMatrix_binned_megaka.hg38.txt
+
+CT_DECON: references/decontamination/CT.fa
+GA_DECON: references/decontamination/GA.fa
+BOTH_DECON: references/decontamination/both.fa
+
+MEYER: references/adapters/Meyer.fa
+SRSLY: references/adapters/SRSLY.fa
+
+CFSMOD1: references/CFS/CFSBS_MODEL_R1.joblib
+CFSMOD2: references/CFS/CFSBS_MODEL_R2.joblib
+
+### SCRIPTS ###
+BPBED: workflow/scripts/singleBP_bedGraph2.py
+RMDBL: workflow/scripts/remdouble.py
+DL_GENOMES: workflow/scripts/download_genomes.sh
+REF_CONV: workflow/scripts/reference_conversion_wgbs.py
+GENOMESIZE: workflow/scripts/taxid_genome_sizes.R
+MAKELUT: workflow/scripts/make.LUT.sh
+MERGELUT: workflow/scripts/merge_tax_name_length.R
+FILTER_STRAND: workflow/scripts/get_taxid_filter_strand.py
+FILTER_STRAND_GI: workflow/scripts/get_taxid_filter_strand_gi.py
+COUNT_FASTQ: workflow/scripts/fastq_counter.sh
+CALC_COV: workflow/scripts/coverage_calc.sh
+NON_DUP: workflow/scripts/non_duplicate_frac.sh
+INTER: workflow/scripts/interleave_pairs.py
+ANN_GRAMMY_GI: workflow/scripts/annotate_grammy_main.R
+ANN_GRAMMY_ACC: workflow/scripts/annotate_grammy_accession.R
+SRA: workflow/scripts/sra.sh
+TOFAGG: workflow/scripts/aggregate_over_regions.R
+TOF: workflow/scripts/tissues_of_origin_v2.R
+INSIL_CONV: workflow/scripts/insilico_conversion2.py
+FILTA: workflow/scripts/testing_split2.sh
+FILTB: workflow/scripts/filter_paired_end_blast4.R
+CONSOLIDATE: worflow/scripts/consolidate_GA_CT_reads.R
+AGGMETH: workflow/scripts/aggregate_methylmatrix.R
+
+### PROGRAMS ###
+ADD_STR: workflow/software/perl/t/fastq_addstr.pl
+F2S: workflow/software/perl/t/fastq2stabq.pl
+S2F: workflow/software/perl/t/stabq2fastq.pl
+TRANSPOSE: workflow/software/perl/t/transpose.pl
+FILTER: workflow/software/perl/t/filter.pl
+ADD_COL: workflow/software/perl/t/add_column.pl
+HSBLASTN: workflow/software/hs-blastn-src/hs-blastn
+GRAMMY_GDT: workflow/software/GRAMMy/grammy/grammy_gdt.py
+GRAMMY_EM: workflow/software/GRAMMy/grammy/grammy_em.py
+GRAMMY_POST: workflow/software/GRAMMy/grammy/grammy_post.py
+GRAMMY_RDT: workflow/software/GRAMMy/grammy/grammy_rdt.py
+GRAMMY_PRE_GI: workflow/software/GRAMMy/grammy_old/grammy_pre.py
+GRAMMY_PRE_ACC: workflow/software/GRAMMy/grammy/grammy_pre_acc.py
+BBDUK: workflow/software/bbmap/bbduk.sh
+BISMARK: workflow/software/Bismark-0.22.1/bismark
+METHEXT: workflow/software/Bismark-0.22.1/bismark_methylation_extractor
+BISDEDUP: workflow/software/Bismark-0.22.1/deduplicate_bismark
+RMDUPS: workflow/software/Bismark-0.22.1/deduplicate_bismark
+METHPIPETOMR: workflow/software/methpipe-3.4.3/bin/to-mr
+METHPIPEBSRATE: workflow/software/methpipe-34.3/bin/bsrate
+DEDUP: workflow/software/bbmap/clumpify.sh
+CROSSMAP: workflow/software/CrossMap-0.2.7/bin/CrossMap.py
+METILENE: workflow/software/metilene_v0.2-7/metilene_linux64
+
+### STRINGS ###
+CHR: chr1 chr2 chr3 chr4 chr5 chr6 chr7 chr8 chr9 chr10 chr11 chr12 chr13 chr14 chr15 chr16 chr17 chr18 chr19 chr20 chr21 chr22
+REFERENCE_METHYLOMES:
+        [bcell_1,bcell_2,bcell_3,bcell_4,bcell_5,bcell_6,bcell_7,bcell_8,bcell_9,colon_1,colon_2,colon_3,colon_4,colon_5,colon_6,colon_7,colon_8,colon_9,colon_10,colon_11,colon_12,colon_13,colon_14,colon_15,colon_16,colon_17,colon_18,colon_19,colon_20,colon_21,colon_22,colon_23,colon_24,colon_25,dendritic_1,dendritic_2,eosinophil_1,eosinophil_2,eosinophil_3,eosinophil_4,eosinophil_5,erythroblast_1,erythroblast_2,heart_1,heart_2,heart_3,heart_4,hsc_1,hsc_2,hsc_3,hsc_4,hsc_5,hsc_6,hsc_7,kidney_1,kidney_2,kidney_3,kidney_4,kidney_5,kidney_6,kidney_7,kidney_8,kidney_9,kidney_10,liver_1,liver_2,liver_3,liver_4,liver_5,liver_6,liver_7,liver_8,liver_9,lung_1,lung_2,lung_3,lung_4,
+               #lung_5,lung_6,
+               macrophage_1,macrophage_2,macrophage_3,macrophage_4,macrophage_5,macrophage_6,macrophage_7,macrophage_8,macrophage_9,macrophage_10,megakaryocyte_1,megakaryocyte_2,megakaryocyte_3,megakaryocyte_4,megakaryocyte_5,monocyte_1,monocyte_2,monocyte_3,monocyte_4,monocyte_5,monocyte_6,neutrophil_1,neutrophil_2,neutrophil_3,neutrophil_4,neutrophil_5,neutrophil_6,neutrophil_7,nkcell_1,nkcell_2,pancreas_1,pancreas_2,pancreas_3,pancreas_4,pancreas_5,pancreas_6,pancreas_7,progenitor_1,progenitor_2,progenitor_3,progenitor_4,progenitor_5,progenitor_6,progenitor_7,progenitor_8,progenitor_9,progenitor_10,progenitor_11,progenitor_12,progenitor_13,progenitor_14,progenitor_15,progenitor_16,skin_1,skin_2,spleen_1,spleen_2,spleen_3,spleen_4,tcell_1,tcell_2,tcell_3,tcell_4,tcell_5,tcell_6,tcell_7,tcell_8,tcell_9,tcell_10,tcell_11,tcell_12]
