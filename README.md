@@ -29,8 +29,8 @@ Before running the cfDNA pipeline:
 3. Activate the conda environment  
 `conda activate cfdna_pipeline`  
 4. Install additional packages:  
-`conda install -c conda-forge -y ratelimiter r-limsolve r-matrixcalc r-matrix r-data.table zipp importlib-metadata configargparse appdirs`
-`conda install -c bioconda -y ucsc-bigwigtobedgraph abismal htslibb methpipe`
+`conda install -c conda-forge -y ratelimiter r-limsolve r-matrixcalc r-matrix r-data.table zipp importlib-metadata configargparse appdirs`  
+`conda install -c bioconda -y ucsc-bigwigtobedgraph abismal htslibb methpipe`  
 `pip3 install pandas datrie pyparsing perl`
 
 
@@ -43,8 +43,7 @@ The plug and play cfDNA pipeline follows the general steps:
 1. Copy data in `data/`  
 2. Create a sequecing prep table  
 3. Choose the metagenomic reference   
-4. Change the reference cluster
-5. Execute  
+4. Execute
 
 #### *Copy data to `data/`*  
 Copy raw data to `data/<project>/` as `<sample_id>_R[1-2].fastq.gz`. It is recommended to rename the files to remove adapter information.  
@@ -62,13 +61,10 @@ Copy raw data to `data/<project>/` as `<sample_id>_R[1-2].fastq.gz`. It is recom
 #### *Choose the metagenomic reference*  
 The default metagenomic reference is NCBIGenomes22, which contains all reference and representative genomes (archaea, bacteria, fungi, and viral) and the human genome. There are two additional options for metagenomic reference currently supported:  
 1. Using the old metagenomic reference, NCBIGenomes06:  
-     To use NCBIGenomes06, open the Snakefile and change `OLD_MET_REF = "TRUE"`  ^(**for this to work, `MAKE_NEWDB` must be set to `"FALSE"`**)
+     To use NCBIGenomes06, open the Snakefile and change `OLD_MET_REF = "TRUE"`. **For this to work, `MAKE_NEWDB` must be set to `"FALSE"`**.  
 2. Adding additional genomes to the metagenomic database:
      1. If additional genomes needed for analysis are missing from the database, set `MAKE_NEWDB = "TRUE"` and give your new database a name `NEWDB_NAME = <new_db_name>`  
      2. Create a new file `"add_assembly_accession.txt"` that contains a single column of assembly accessions (e.g., GCF_002287175.1). The assembly accessions can be obtained from the first column of an `assembly summary.txt` file downloaded from the [NCBI FTP site](https://ftp.ncbi.nlm.nih.gov/genomes/refseq/).  
-
-#### Change the reference cluster  
-If you are not running the pipeline in cbsuvlaminck4, change `CONFIG: /` to `CONFIG: /fs/cbsuvlaminck4/` in `workflow/main.yaml`.  
 
 #### Execute  
 Execute the pipeline using snakemake: `snakemake --cores <cores>`. Additional snakemake options can be found [here](https://snakemake.readthedocs.io/en/stable/executing/cli.html#all-options). Results are found in `results/<project><sample>`.  
