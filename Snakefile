@@ -18,7 +18,7 @@ import itertools
 # 	    from ftp://ftp.ncbi.nlm.nih.gov/, and
 # 	(3) A NEWDB_NAME is set
 MAKE_NEWDB = "FALSE"
-NEWDB_NAME = "NCBIGenomes22_test"
+NEWDB_NAME = "NCBIGenomes22_human"
 
 
 ### CHANGE ONLY IF USING NCBIGENOMES06 ###
@@ -27,7 +27,7 @@ OLD_MET_REF = "FALSE"
 
 ### CHANGE ONLY IF MAKING A NEW METHYLMATRIX ###
 NEW_METHYL = "FALSE"
-NEWMETH_NAME = "test"
+NEWMETH_NAME = "meth_test"
 
 #####################################
 ### DO NOT MODIFY BELOW THIS LINE ###
@@ -62,19 +62,21 @@ REFERENCE_METHYLOMES = config['REFERENCE_METHYLOMES']
 NCBI_06 = MP + config['NCBI_06']
 GI_TAXID_06 = MP + config['GI_TAXID_06']
 GI_LENGTH_06 = MP + config['GI_LENGTH_06']
-GDT_06 = config['GDT_06']
+GDT_06 = MP + config['GDT_06']
 LUT_06 = MP + config['LUT_06']
 
-NCBI_22 = config['NCBI_22']
-GI_TAXID_22 = config['GI_TAXID_22']
-GI_LENGTH_22 = config['GI_LENGTH_22']
-GDT_22 = config['GDT_22']
-LUT_22 = config['LUT_22']
-NCBI_CT = config['NCBI_CT']
-NCBI_GA = config['NCBI_GA']
-GDT_CT = config['GDT_CT']
-GDT_GA = config['GDT_GA']
+NCBI_22 = MP + config['NCBI_22']
+GI_TAXID_22 = MP + config['GI_TAXID_22']
+GI_LENGTH_22 = MP + config['GI_LENGTH_22']
+GDT_22 = MP + config['GDT_22']
+LUT_22 = MP + config['LUT_22']
+NCBI_CT = MP + config['NCBI_CT']
+NCBI_GA = MP + config['NCBI_GA']
+GDT_CT = MP + config['GDT_CT']
+GDT_GA = MP + config['GDT_GA']
 HUMAN_22 = MP + config['HUMAN_22']
+NCBI_06_CT = MP + config['NCBI_06_CT']
+NCBI_06_GA = MP + config['NCBI_06_GA']
 
 GOLDENBED_HG19 = MP + config['GOLDENBED_HG19']
 GOLDENBED_HG38 = MP + config['GOLDENBED_HG38']
@@ -92,6 +94,9 @@ CFSMOD1 = MP + config['CFSMOD1']
 CFSMOD2 = MP + config['CFSMOD2']
 
 # Scripts
+REFILT = config['REFILT']
+FILT_GRAM_BS = config['FILT_GRAM_BS']
+ANN_GRAM_BS = config['ANN_GRAM_BS']
 AGGMETH = config['AGGMETH']
 BPBED = config['BPBED']
 RMDBL = config['RMDBL']
@@ -117,6 +122,7 @@ FILTB = config['FILTB']
 CONSOLIDATE = config['CONSOLIDATE']
 
 # Programs
+DEDUP2 = MP + config['DEDUP2']
 ADD_STR = MP + config['ADD_STR']
 F2S = MP + config['F2S']
 S2F = MP + config['S2F']
@@ -135,8 +141,6 @@ BISMARK = MP + config['BISMARK']
 BISDEDUP = MP + config['BISDEDUP']
 METHEXT = MP + config['METHEXT']
 RMDUPS = MP + config['RMDUPS']
-METHPIPETOMR = MP + config['METHPIPETOMR']
-METHPIPEBSRATE = MP + config['METHPIPEBSRATE']
 DEDUP = MP + config['DEDUP']
 CROSSMAP = MP + config['CROSSMAP']
 METILENE = MP + config['METILENE']
@@ -153,6 +157,10 @@ PROJECTS = list(set([get_project(s) for s in SAMPLES]))
 samplesInProjects = {}
 for p in PROJECTS:
     samplesInProjects[p] = sample_information.loc[sample_information.project_id == p].index.tolist()
+SEQTYPES = list(set([get_prep_type(s) for s in SAMPLES]))
+samplesInSeqs = {}
+for t in SEQTYPES:
+    samplesInSeqs[t] = sample_information.loc[sample_information.seq_type== t].index.tolist()
 
 
 def get_sample_info(wcrds):
@@ -177,11 +185,26 @@ MAKEREF = [expand('references/' + NEWDB_NAME + '/' + 'LUT/taxids_names_lengths_t
 
 MAKE_METHYL = [expand('references/reference_methylomes_' + NEWMETH_NAME + '/singleBP_bedGraph_{genome}/{methylome}.singlebp.bedGraph', comp_group = comparing_groups, methylome = config['REFERENCE_METHYLOMES'], genome=config['GENOMES'])]
 
- 
-#ANALYSIS = [ OUTPUT + '{project}/{sample}/{sample}.grammy.tab'.format(sample=sample, project=get_project(sample)) for sample in SAMPLES]
 
+# Pick pipeline based on sample prep
+if 'standard' in samplesInSeqs.keys(): 
+	STD_ANALYSIS = [ OUTPUT + '{project}/{sample}/{sample}.grammy.tab'.format(sample=sample, project=get_project(sample)) for sample in samplesInSeqs['standard']]
+else:
+	STD_ANALYSIS = []
 
-ANALYSIS = [ OUTPUT + '{project}/{sample}/{sample}.bsconversion'.format(sample=sample, project=get_project(sample)) for sample in SAMPLES]
+if 'bisulfite' in samplesInSeqs.keys():
+	METH_ANALYSIS = [OUTPUT + '{project}/{sample}/refiltered/{sample}.grammy.tab'.format(sample=sample, project=get_project(sample)) for sample in samplesInSeqs['bisulfite']]
+else:
+	METH_ANALYSIS = []
+
+if 'bowtie' in samplesInSeqs.keys():
+	BIS_ANALYSIS = [OUTPUT + '{project}/{sample}/blast/{sample}.grammy.tab'.format(sample=sample, project=get_project(sample)) for sample in samplesInSeqs['bowtie']]
+else:
+	BIS_ANALYSIS = []
+
+ANALYSIS = STD_ANALYSIS + METH_ANALYSIS + BIS_ANALYSIS
+
+# Pick pipeline based on reference
 
 if MAKE_NEWDB == "FALSE" and NEW_METHYL == "FALSE":
     inputs = ANALYSIS
@@ -228,8 +251,11 @@ include: 'workflow/rules/metagenomic/hsblastn.smk'
 include: 'workflow/rules/trim/bbduk.smk'
 include: 'workflow/rules/alignment/bismark.smk'
 include: 'workflow/rules/methylation/estimate_BSconversion.smk'
+include: 'workflow/rules/stats/mapping_stats.smk'
 include: 'workflow/rules/methylation/methylation_extraction.smk'
 include: 'workflow/rules/methylation/tissues_of_origin.smk'
 include: 'workflow/rules/metagenomic/decontaminate.smk'
-#include: 'workflow/rules/metagenomic/C_poor_abundances.smk'
-#include: 'workflow/rules/unfiltered_abundances.smk'
+include: 'workflow/rules/metagenomic/C_poor_abundances.smk'
+include: 'workflow/rules/metagenomic/unfiltered_abundances.smk'
+include: 'workflow/rules/metagenomic/refiltered_abundances.smk'
+include: 'workflow/rules/metagenomic/bowtie.smk'

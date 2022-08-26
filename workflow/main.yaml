@@ -15,18 +15,20 @@ HG38: references/hg38/bwa/hg38.fa
 HG38_CHROMO_SIZES: references/hg38/hg38.chrom.sizes 
 PHIX: references/phix/bwa/phiX.fa
 
-HG19STD: references/hg19/bowtie2
-HG19METH: references/hg19/bismark
-HG38STD: references/hg38/bowtie2
-HG38METH: references/hg38/bismark
-PHIXSTD: references/phix/bowtie2
-PHIXMETH: references/phix/bismark
+HG19STD: references/hg19/bowtie2/
+HG19METH: references/hg19/bismark/
+HG38STD: references/hg38/bowtie2/
+HG38METH: references/hg38/bismark/
+PHIXSTD: references/phix/bowtie2/
+PHIXMETH: references/phix/bismark/
 
 NCBI_06: references/NCBIGenomes06/blast/NCBIGenomes06.fna
 GI_TAXID_06: references/NCBIGenomes06/blast/NCBIGenomes06.gis.taxids
 GI_LENGTH_06: references/NCBIGenomes06/LUTGrammy/taxids_lengths.tab
 GDT_06: references/NCBIGenomes06/LUTGrammy/NCBIGenomes06
 LUT_06: references/NCBIGenomes06/LUTGrammy/taxids_names_lengths_tax.tab
+NCBI_06_CT: references/NCBIGenomes06/CT/NCBIGenomes06_CT.fna
+NCBI_06_GA: references/NCBIGesnoms06/GA/NCBIGenomes06_GA.fna
 
 NCBI_22: references/NCBIGenomes22/std/NCBIGenomes22_std.fna
 GI_TAXID_22: references/NCBIGenomes22/NCBIGenomes22.acc.taxids
@@ -38,7 +40,8 @@ NCBI_CT: references/NCBIGenomes22/CT/NCBIGenomes22_CT.fna
 GDT_GA: references/NCBIGenomes22/GA/NCBIGenomes22_GA
 GDT_CT: references/NCBIGenomes22/CT/NCBIGenomes22_CT
 HUMAN_22: references/NCBIGenomes22/NCBIGenomes22.human.gis
-
+GA_06: references/NCBIGenomes06/GA/NCBIGenomes06_GA.fna
+CT_06: references/NCBIGenomes06/CT/NCBIGenomes06_CT.fna
 GOLDENBED_HG19: references/reference_methylomes/golden_markers_megaka.hg19.bed
 GOLDENBED_HG38: references/reference_methylomes/golden_markers_megaka.hg38.bed
 METHYLMATRIX_HG19: references/reference_methylomes/MethylMatrix_binned_megaka.hg19.txt
@@ -55,6 +58,7 @@ CFSMOD1: references/CFS/CFSBS_MODEL_R1.joblib
 CFSMOD2: references/CFS/CFSBS_MODEL_R2.joblib
 
 ### SCRIPTS ###
+REFILT: workflow/scripts/notebook.py
 BPBED: workflow/scripts/singleBP_bedGraph2.py
 RMDBL: workflow/scripts/remdouble.py
 DL_GENOMES: workflow/scripts/download_genomes.sh
@@ -78,8 +82,11 @@ FILTA: workflow/scripts/testing_split2.sh
 FILTB: workflow/scripts/filter_paired_end_blast4.R
 CONSOLIDATE: worflow/scripts/consolidate_GA_CT_reads.R
 AGGMETH: workflow/scripts/aggregate_methylmatrix.R
+FILT_GRAM_BS: workflow/scripts/filter_gra_file.R
+ANN_GRAM_BS: workflow/scripts/annotate_grammy_apc.R
 
 ### PROGRAMS ###
+DEDUP2: workflow/software/bbmap/dedupe.sh
 ADD_STR: workflow/software/perl/t/fastq_addstr.pl
 F2S: workflow/software/perl/t/fastq2stabq.pl
 S2F: workflow/software/perl/t/stabq2fastq.pl
@@ -98,8 +105,6 @@ BISMARK: workflow/software/Bismark-0.22.1/bismark
 METHEXT: workflow/software/Bismark-0.22.1/bismark_methylation_extractor
 BISDEDUP: workflow/software/Bismark-0.22.1/deduplicate_bismark
 RMDUPS: workflow/software/Bismark-0.22.1/deduplicate_bismark
-METHPIPETOMR: workflow/software/methpipe-3.4.3/bin/to-mr
-METHPIPEBSRATE: workflow/software/methpipe-34.3/bin/bsrate
 DEDUP: workflow/software/bbmap/clumpify.sh
 CROSSMAP: workflow/software/CrossMap-0.2.7/bin/CrossMap.py
 METILENE: workflow/software/metilene_v0.2-7/metilene_linux64

@@ -15,12 +15,7 @@ rule methylation_extraction:
 	params: outdir = OUTPUT + '{project}/{sample}/methylation_extraction/'
 	shell:
 		"""
-		{METHEXT} --parallel {threads} \
-			--bedGraph \
-			-p \ 
-			-o {params.outdir} \
-			--gzip \
-			{input.name_sorted};
+		{METHEXT} --parallel {threads} --bedGraph -p -o {params.outdir} --gzip {input.name_sorted};
 		gunzip -c {params.outdir}{wildcards.sample}.deduplicated.bedGraph.gz | \
 			sort-bed - | gzip > {output.CpG_bg};
 		mv {params.outdir}{wildcards.sample}.deduplicated.bismark.cov.gz {output.CpG_bismark};

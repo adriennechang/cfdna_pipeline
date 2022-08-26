@@ -3,7 +3,7 @@ if OLD_MET_REF == "FALSE":
         use_db = NCBI_22
         use_gi = GI_TAXID_22
         use_length = GI_LENGTH_22
-        use_gdt = MP + GDT_22
+        use_gdt =  GDT_22
         use_lut = LUT_22
         filter_strand = FILTER_STRAND
 	grammy_pre = GRAMMY_PRE_ACC
@@ -11,7 +11,7 @@ if OLD_MET_REF == "FALSE":
         use_db = 'references/' + NEWDB_NAME + '/std/' + NEWDB_NAME + '_std.fna'
         use_gi = 'references/' + NEWDB_NAME +  '/' + NEWDB_NAME + '.acc.taxids'
         use_length = 'references/' + NEWDB_NAME + '/taxids_lengths.txt'
-        use_gdt = MP + 'references/' + NEWDB_NAME + '/std/' + NEWDB_NAME + '_std'
+        use_gdt = 'references/' + NEWDB_NAME + '/std/' + NEWDB_NAME + '_std'
         use_lut = 'references/' + NEWDB_NAME + '/LUT/taxids_names_lengths_tax.tab'
         grammy_pre = GRAMMY_PRE_ACC
         filter_strand = FILTER_STRAND
@@ -20,7 +20,7 @@ if OLD_MET_REF == "TRUE":
     use_db = NCBI_06
     use_gi = GI_TAXID_06
     use_length = GI_LENGTH_06
-    use_gdt = MP + GDT_06
+    use_gdt = GDT_06
     use_lut = LUT_06
     filter_strand = FILTER_STRAND_GI
     grammy_pre = GRAMMY_PRE_GI

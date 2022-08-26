@@ -4,6 +4,3 @@ results/
 logs/
 workflow/software/
 .snakemake/
-key
-key.pub
-prompt

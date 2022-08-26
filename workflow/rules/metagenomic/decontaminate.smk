@@ -13,8 +13,8 @@ def get_adapter_file(wcrds):
 
 
 rule subset_FQ:
-	input: i1 = OUTPUT + '{project}/{sample}/aligned/unmapped/{sample}_unmapped_R1.fastq.gz',
-                i2 = OUTPUT + '{project}/{sample}/aligned/unmapped/{sample}_unmapped_R2.fastq.gz',
+	input: i1 = OUTPUT + '{project}/{sample}/phix/{sample}_unmapped_R1.fastq',
+                i2 = OUTPUT + '{project}/{sample}/phix/{sample}_unmapped_R2.fastq',
 		raw1 = DATA + '{project}/{sample}_R1.fastq.gz',
 		raw2 = DATA + '{project}/{sample}_R2.fastq.gz'
 	output: temp1 = temp(OUTPUT + '{project}/{sample}/{sample}_R1.fq'),
@@ -23,8 +23,8 @@ rule subset_FQ:
 		o2 = OUTPUT + '{project}/{sample}/{sample}_original_unmapped_R2.fastq',
 	shell:
 		"""
-		zcat {input.raw1} | sed 's/ 1/_1/g' > {output.temp1};
-		zcat {input.raw2} | sed 's/ 2/_2/g' > {output.temp2};
+		zcat {input.raw1} | sed 's/ 1.*$/-1/g' > {output.temp1};
+		zcat {input.raw2} | sed 's/ 2.*$/-2/g' > {output.temp2};
 		LC_ALL=C grep "@" {input.i1} | sed 's/^@//g' | seqtk subseq {output.temp1} - > {output.o1};
 		LC_ALL=C grep "@" {input.i2} | sed 's/^@//g' | seqtk subseq {output.temp2} - > {output.o2};
 		"""
@@ -65,7 +65,7 @@ rule flash:
 	log: 'logs/{project}/{sample}.flash.log'
 	shell:
 		"""
-		flash -q -M75 -O -o {wildcards.sample}_flash -d {OUTPUT}{wildcards.project}/{wildcards/sample} {input.r1} {input.r2} &> {log};
+		flash -q -M75 -O -o {wildcards.sample}_flash -d {OUTPUT}{wildcards.project}/{wildcards.sample} {input.r1} {input.r2} &> {log};
 		"""
 
 rule combine:

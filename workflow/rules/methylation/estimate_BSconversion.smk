@@ -8,14 +8,14 @@ def get_reference_genome_fasta(wcrds):
                 seq = seq_type
     if seq == "standard":
         if ver == "hg38":
-            gen = HG38STD + '/hg38.fa'
+            gen = HG38STD + 'hg38.fa'
         if ver == "hg19":
-            gen = HG19STD + '/hg19.fa'
+            gen = HG19STD + 'hg19.fa'
     if seq == "bisulfite":
         if ver == "hg38":
-            gen = HG38METH + '/hg38.fa'
+            gen = HG38METH + 'hg38.fa'
         if ver == "hg19":
-            gen = HG19METH + '/hg19.fa'
+            gen = HG19METH + 'hg19.fa'
     return(gen)
 
 
@@ -28,8 +28,8 @@ rule estimate_BSconversion:
 		sample_rate = OUTPUT + '{project}/{sample}/{sample}.bsconversion'
 	shell:
 		"""
-		{METHPIPETOMR} -m general -o {output.mr} -L 500 {input.mapped};
-		{METHPIPEBSRATE} -c {input.genome} -o {output.bsrate} {output.mr};
+		format_reads -o {output.mr} -L 500 {input.mapped};
+		bsrate -c {input.genome} -o {output.bsrate} {output.mr};
 		X=$(head -1 {output.bsrate})
 		echo -e "{wildcards.sample}\t$X" > {output.sample_rate}
 		"""

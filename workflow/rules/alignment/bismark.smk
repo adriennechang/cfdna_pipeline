@@ -6,7 +6,7 @@ def get_reference_genome(wcrds):
             if str(wcrds.sample) == sample_id:
                 ver = genome_ver
                 seq = seq_type
-    if seq == "standard":
+    if seq == "bowtie":
         if ver == "hg38":
             gen = HG38STD
         if ver == "hg19":
@@ -26,7 +26,7 @@ def get_reference_genome_fasta(wcrds):
             if str(wcrds.sample) == sample_id:
                 ver=genome_ver
                 seq=seq_type
-    if seq == "standard":
+    if seq == "bowtie":
         if ver == "hg38":
             gen = HG38STD + 'hg38.fa'
         if ver == "hg19":
@@ -127,29 +127,29 @@ def aggregate_bam_files(wcrds):
             if str(wcrds.sample) == sample_id:
                 seq = seq_type
     if seq == "bisulfite":
-        bam = OUTPUT + '{project}/{sample}/bismark_aligned/raw_aligned/{sample}.bam'
+        outbam = OUTPUT + '{project}/{sample}/bismark_aligned/raw_aligned/{sample}.bam'
         mapped_all_chr = OUTPUT + '{project}/{sample}/bismark_aligned/all_chr/{sample}_mapped_all_chr.bam'
         mapped_all_chr_bai = OUTPUT + '{project}/{sample}/bismark_aligned/all_chr/{sample}_mapped_all_chr.bam.bai'
         unmapped_R1 = OUTPUT + '{project}/{sample}/bismark_aligned/unmapped/{sample}_pe_unmapped_R1.fastq.gz'
         unmapped_R2 = OUTPUT + '{project}/{sample}/bismark_aligned/unmapped/{sample}_pe_unmapped_R2.fastq.gz'
-    if seq == "standard":
-        bam = OUTPUT + '{project}/{sample}/bowtie_aligned/raw_aligned/{sample}.bam'
+    if seq == "bowtie":
+        outbam = OUTPUT + '{project}/{sample}/bowtie_aligned/raw_aligned/{sample}.bam'
         mapped_all_chr = OUTPUT + '{project}/{sample}/bowtie_aligned/all_chr/{sample}_mapped_all_chr.bam'
         mapped_all_chr_bai = OUTPUT + '{project}/{sample}/bowtie_aligned/all_chr/{sample}_mapped_all_chr.bam.bai'
         unmapped_R1 =  OUTPUT + '{project}/{sample}/bowtie_aligned/unmapped/{sample}_unmapped_R1.fastq.gz'
         unmapped_R2 =  OUTPUT + '{project}/{sample}/bowtie_aligned/unmapped/{sample}_unmapped_R2.fastq.gz'
-    return[bam, mapped_all_chr, mapped_all_chr_bai, unmapped_R1, unmapped_R2]
+    return[outbam, mapped_all_chr, mapped_all_chr_bai, unmapped_R1, unmapped_R2]
 
 rule aggregate_bams:
 	input: aggregate_bam_files
-	output: bam = OUTPUT + '{project}/{sample}/aligned/raw_aligned/{sample}.bam',
+	output: bamout = OUTPUT + '{project}/{sample}/aligned/raw_aligned/{sample}.bam',
 		mapped_all_chr = OUTPUT + '{project}/{sample}/aligned/all_chr/{sample}_mapped_all_chr.bam',
 		mapped_all_chr_bai = OUTPUT + '{project}/{sample}/aligned/all_chr/{sample}_mapped_all_chr.bam.bai',
 		unmapped_R1 = OUTPUT + '{project}/{sample}/aligned/unmapped/{sample}_unmapped_R1.fastq.gz',
 		unmapped_R2 = OUTPUT + '{project}/{sample}/aligned/unmapped/{sample}_unmapped_R2.fastq.gz'
 	shell:
 		"""
-		cp {input[0]} {output.bam};
+		cp {input[0]} {output.bamout};
 		cp {input[1]} {output.mapped_all_chr};
 		cp {input[2]} {output.mapped_all_chr_bai};
 		cp {input[3]} {output.unmapped_R1};
@@ -164,7 +164,7 @@ rule phix_alignment:
 		o1 = OUTPUT + '{project}/{sample}/phix/{sample}_unmapped_R1.fastq',
 		o2 = OUTPUT +  '{project}/{sample}/phix/{sample}_unmapped_R2.fastq'
 	params:
-		genome_prefix = PHIXSTD,
+		genome_prefix = PHIXSTD + '/phix',
 		unmapped_pe = OUTPUT + '{project}/{sample}/phix/{sample}_unmapped_R%.fastq',
 	shell:
 		"""

@@ -11,4 +11,8 @@ wget https://ftp.ncbi.nlm.nih.gov/genomes/refseq/viral/assembly_summary.txt -O $
 wget https://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/Homo_sapiens/assembly_summary.txt -O $outdir"human.txt"
 
 cat $outdir"archaea.txt" $outdir"bacteria.txt" $outdir"fungi.txt" $outdir"viral.txt" $outdir"human.txt" > $outall
-cat add_assembly_accession.txt $outall | awk -F "\t" '{ if ($5== "representative genome" || $5 == "reference genome" ) print $0}' > $outfile || true;
+
+
+awk -F "\t" '{ if ($5== "representative genome" || $5 == "reference genome" ) print $0}' $outall > $outfile || true;
+
+LC_ALL=C fgrep -f add_assembly_accession.txt $outall >> $outfile || true;

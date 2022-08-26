@@ -132,7 +132,7 @@ rule make_grammydb:
 		rm -f {output.prompts};
 		mkdir -p {REF_DIR}grefs/;
 		mkdir -p {REF_DIR}grefs/{wildcards.conversion};
-		blastdbcmd -db {REF_DIR}{params.genome}.curated -entry all -outfmt "%a" | sort | uniq | LC_ALL=C fgrep -f - {input.acctax} | cut -f3 | sort | uniq | while read taxid; do echo "sh scripts/build.grefs.sh $taxid {input.acctax} {wildcards.conversion} {wildcards.conversion}/{params.genome}.curated grefs" >> {output.prompts}; done
+		blastdbcmd -db {REF_DIR}{wildcards.conversion}/{params.genome}.curated -entry all -outfmt "%a" | sort | uniq | LC_ALL=C fgrep -f - {input.acctax} | cut -f3 | sort | uniq | while read taxid; do echo "sh workflow/scripts/build.grefs.sh $taxid {input.acctax} {wildcards.conversion} {REF_DIR}{wildcards.conversion}/{params.genome}.curated {REF_DIR}grefs/{wildcards.conversion}" >> {output.prompts}; done
 		perl_fork_univ.pl {output.prompts} {threads};
 		cat {input.acctax} | awk '{{ print $2 "\t" $3 }}' > {output.taxids};
 		TIDS=$(cat {input.acctax} | cut -f3 | sort -u | tr '\n' ',');

@@ -25,11 +25,11 @@ Before running the cfDNA pipeline:
 1. Activate conda  
 `source /workdir/<netid>/miniconda3/bin/activate`  
 2. Create the conda environment  
-`conda create -c bioconda -n cfdna_pipeline -y python=3.6 csvtk=0.24.0 fastqc=0.11.9 flash=1.2.11 seqkit=2.3.0 seqtk=1.3 taxonkit=0.12.0 trimmomatic=0.39`  
+`conda create -c bioconda -n cfdna_pipeline -y python=3.6 csvtk=0.24.0 fastqc=0.11.9 flash=1.2.11 seqkit=2.3.0 seqtk=1.3 taxonkit=0.12.0 trimmomatic=0.39 abismal=3.0.0 htslib=1.15.1 methpipe=5.0.1`  
 3. Activate the conda environment  
 `conda activate cfdna_pipeline`  
 4. Install additional packages:  
-`conda install -c conda-forge -y ratelimiter zipp importlib-metadata configargparse appdirs`
+`conda install -c conda-forge -y ratelimiter r-limsolve r-matrixcalc r-matrix r-data.table zipp importlib-metadata configargparse appdirs`
 `conda install -c bioconda -y ucsc-bigwigtobedgraph`
 `pip3 install pandas datrie pyparsing perl`
 
