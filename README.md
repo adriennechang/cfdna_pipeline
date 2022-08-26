@@ -25,12 +25,12 @@ Before running the cfDNA pipeline:
 1. Activate conda  
 `source /workdir/<netid>/miniconda3/bin/activate`  
 2. Create the conda environment  
-`conda create -c bioconda -n cfdna_pipeline -y python=3.6 csvtk=0.24.0 fastqc=0.11.9 flash=1.2.11 seqkit=2.3.0 seqtk=1.3 taxonkit=0.12.0 trimmomatic=0.39 abismal=3.0.0 htslib=1.15.1 methpipe=5.0.1`  
+`conda create -c bioconda -n cfdna_pipeline -y python=3.6 csvtk=0.24.0 fastqc=0.11.9 flash=1.2.11 seqkit=2.3.0 seqtk=1.3 taxonkit=0.12.0 trimmomatic=0.39`  
 3. Activate the conda environment  
 `conda activate cfdna_pipeline`  
 4. Install additional packages:  
 `conda install -c conda-forge -y ratelimiter r-limsolve r-matrixcalc r-matrix r-data.table zipp importlib-metadata configargparse appdirs`
-`conda install -c bioconda -y ucsc-bigwigtobedgraph`
+`conda install -c bioconda -y ucsc-bigwigtobedgraph abismal htslibb methpipe`
 `pip3 install pandas datrie pyparsing perl`
 
 
@@ -53,11 +53,11 @@ Copy raw data to `data/<project>/` as `<sample_id>_R[1-2].fastq.gz`. It is recom
  Create a new sequencing prep table (tab-delimited) using the columns below and save a copy to the `prep_tables/` folder with the file structure `sequencing_prep_<project>.tsv`:  
  - **sample_id**: Sample ID that will be used for naming (e.g., `<sample_id>_R[1-2].fastq.gz`)  
  - **project_id**: Project name  
- - **prep_type**: The library preparation type used (MEYER or SRSLY)  
+ - **prep_type**: The library preparation type used [MEYER or SRSLY]  
  - **path**: The path to the fastq location (e.g., `data/`)  
- - **genome_ver**: The genome version used for the analysis (hg19 or hg38)  
- - **seq_type**:  The sequencing type (standard or bisulfite)   
-    *Note: currently only standard is supported*  
+ - **genome_ver**: The genome version used for the analysis [hg19 or hg38]  
+ - **seq_type**:  The sequencing type [standard or bisulfite (wgbs or SIFT-seq) or bowtie (standard-seq for comparison with bisulfite analysis)]   
+    *Note: currently only standard and bowtie are supported*  
     
 #### *Choose the metagenomic reference*  
 The default metagenomic reference is NCBIGenomes22, which contains all reference and representative genomes (archaea, bacteria, fungi, and viral) and the human genome. There are two additional options for metagenomic reference currently supported:  
