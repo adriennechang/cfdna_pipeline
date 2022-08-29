@@ -18,6 +18,15 @@ if OLD_MET_REF == "FALSE":
 	grammy_pre = GRAMMY_PRE_ACC
 	use_lut = 'references/' + NEWDB_NAME + '/LUT/taxids_names_lengths_tax.tab'
 
+if OLD_MET_REF == "TRUE":
+    use_db_CT = CT_06
+    use_db_GA = GA_06
+    use_gdt_CT = GDT06_CT
+    use_gdt_GA = GDT06_GA
+    human_gis = HUMAN_06
+    grammy_pre = GRAMMY_PRE_GI
+    use_lut = LUT_06
+
 
 rule get_C_poor:
 	input: decon = OUTPUT + '{project}/{sample}/decontaminate/{sample}.decon.fa'

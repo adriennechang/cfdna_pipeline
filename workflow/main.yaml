@@ -22,7 +22,7 @@ HG38METH: references/hg38/bismark/
 PHIXSTD: references/phix/bowtie2/
 PHIXMETH: references/phix/bismark/
 
-NCBI_06: references/NCBIGenomes06/blast/NCBIGenomes06.fna
+NCBI_06: references/NCBIGenomes06/std/NCBIGenomes06_std.fna
 GI_TAXID_06: references/NCBIGenomes06/blast/NCBIGenomes06.gis.taxids
 GI_LENGTH_06: references/NCBIGenomes06/LUTGrammy/taxids_lengths.tab
 GDT_06: references/NCBIGenomes06/LUTGrammy/NCBIGenomes06
@@ -30,18 +30,21 @@ LUT_06: references/NCBIGenomes06/LUTGrammy/taxids_names_lengths_tax.tab
 NCBI_06_CT: references/NCBIGenomes06/CT/NCBIGenomes06_CT.fna
 NCBI_06_GA: references/NCBIGesnoms06/GA/NCBIGenomes06_GA.fna
 
-NCBI_22: references/NCBIGenomes22/std/NCBIGenomes22_std.fna
-GI_TAXID_22: references/NCBIGenomes22/NCBIGenomes22.acc.taxids
-GI_LENGTH_22: references/NCBIGenomes22/taxids_lengths.txt
-GDT_22: references/NCBIGenomes22/std/NCBIGenomes22_std
-LUT_22: references/NCBIGenomes22/LUT/taxids_names_lengths_tax.tab
-NCBI_GA: references/NCBIGenomes22/GA/NCBIGenomes22_GA.fna
-NCBI_CT: references/NCBIGenomes22/CT/NCBIGenomes22_CT.fna
-GDT_GA: references/NCBIGenomes22/GA/NCBIGenomes22_GA
-GDT_CT: references/NCBIGenomes22/CT/NCBIGenomes22_CT
-HUMAN_22: references/NCBIGenomes22/NCBIGenomes22.human.gis
+NCBI_22: references/NCBIGenomes22_human/std/NCBIGenomes22_human_std.fna
+GI_TAXID_22: references/NCBIGenomes22_human/NCBIGenomes22_human.acc.taxids
+GI_LENGTH_22: references/NCBIGenomes22_human/taxids_lengths.txt
+GDT_22: references/NCBIGenomes22_human/std/NCBIGenomes22_human_std
+LUT_22: references/NCBIGenomes22_human/LUT/taxids_names_lengths_tax.tab
+NCBI_GA: references/NCBIGenomes22_human/GA/NCBIGenomes22_human_GA.fna
+NCBI_CT: references/NCBIGenomes22_human/CT/NCBIGenomes22_human_CT.fna
+GDT_GA: references/NCBIGenomes22_human/GA/NCBIGenomes22_human_GA
+GDT_CT: references/NCBIGenomes22_human/CT/NCBIGenomes22_human_CT
+HUMAN_22: references/NCBIGenomes22_human/NCBIGenomes22_human.human.gis
 GA_06: references/NCBIGenomes06/GA/NCBIGenomes06_GA.fna
 CT_06: references/NCBIGenomes06/CT/NCBIGenomes06_CT.fna
+GDT06_GA: references/NCBIGenomes06/GA/NCBIGenomes06_GA
+GDT06_CT: references/NCBIGenomes06/CT/NCBIGenomes06_CT
+HUMAN_06: references/NCBIGenomes06/NCBIGenomes06.human.gis
 GOLDENBED_HG19: references/reference_methylomes/golden_markers_megaka.hg19.bed
 GOLDENBED_HG38: references/reference_methylomes/golden_markers_megaka.hg38.bed
 METHYLMATRIX_HG19: references/reference_methylomes/MethylMatrix_binned_megaka.hg19.txt

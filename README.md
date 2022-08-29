@@ -29,9 +29,9 @@ Before running the cfDNA pipeline:
 3. Activate the conda environment  
 `conda activate cfdna_pipeline`  
 4. Install additional packages:  
-`conda install -c conda-forge -y ratelimiter r-limsolve r-matrixcalc r-matrix r-data.table zipp importlib-metadata configargparse appdirs`  
+`conda install -c conda-forge -y ratelimiter r-limsolve r-matrixcalc r-matrix r-data.table zipp importlib-metadata configargparse appdirs r-dplyr`  
 `conda install -c bioconda -y ucsc-bigwigtobedgraph abismal htslibb methpipe`  
-`pip3 install pandas datrie pyparsing perl`
+`pip3 install pandas datrie pyparsing perl`  
 
 
 ## Running the pipeline  

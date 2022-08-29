@@ -12,7 +12,17 @@ if OLD_MET_REF == "FALSE":
         use_gdt = 'references/' + NEWDB_NAME + '/std/' + NEWDB_NAME + '_std'
         use_lut = 'references/' + NEWDB_NAME + '/LUT/taxids_names_lengths_tax.tab'
         grammy_pre = GRAMMY_PRE_ACC
-        filter_strand = FILTER_STRAND
+
+if OLD_MET_REF == "TRUE":
+    use_db_CT = CT_06
+    use_db_GA = GA_06
+    use_gdt_CT = GDT06_CT
+    use_gdt_GA = GDT06_GA
+    human_gis = HUMAN_06
+    grammy_pre = GRAMMY_PRE_GI
+    use_lut = LUT_06
+
+
 
 rule refilter:
 	input: unfilteredgrammy = OUTPUT + '{project}/{sample}/unfiltered/{sample}.grammy.tab',

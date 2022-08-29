@@ -59,7 +59,7 @@ rule download_acc:
 			awk '{{ print $1 }}' | \
 			sed 's/>//g' > {output.acc2};
 		LC_ALL=C fgrep -f {output.acc2} {output.acc} > {output.acctax};
-		awk '$3=="9606" {{print $0}}' {output.acctax} > {output.human};
+		awk '$3=="9606" {{print $2}}' {output.acctax} > {output.human};
 		"""
 
 rule convert_fasta:

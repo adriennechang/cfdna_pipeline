@@ -1,2 +1,2 @@
 sample_id	project_id	prep_type	path	genome_ver	seq_type
-AS9	test_bisulfite	MEYER	data/	hg38	bowtie
+GHLTB99_CFS	test_bisulfite	SRSLY	data/	hg38	bisulfite
