@@ -28,20 +28,20 @@ genome = Fasta(genome_fasta)
 
 
 unfilt = pd.read_csv(unfiltered_grammy, sep = '\t')
-unfilt = unfilt[["Species", "AdjustedBlast", "RelCoverage"]]
+unfilt = unfilt[["species", "AdjustedBlast", "RelCoverage"]]
 unfilt = unfilt.dropna()
-unfilt = unfilt.groupby('Species').sum()
+unfilt = unfilt.groupby('species').sum()
 unfilt.reset_index(inplace=True)
-unfilt.columns = ["Species", "unfiltAB", "unfiltRC"]
+unfilt.columns = ["species", "unfiltAB", "unfiltRC"]
 
 filt = pd.read_csv(filt_grammy, sep = '\t')
-filt = filt[["Species", "AdjustedBlast", "RelCoverage"]]
+filt = filt[["species", "AdjustedBlast", "RelCoverage"]]
 filt = filt.dropna()
-filt = filt.groupby('Species').sum()
+filt = filt.groupby('species').sum()
 filt.reset_index(inplace=True)
-filt.columns = ["Species", "filtAB", "filtRC"]
+filt.columns = ["species", "filtAB", "filtRC"]
 
-df = pd.merge(left=unfilt, right = filt, on = 'Species').astype({'Species':'int'}).astype({'Species':'str'})
+df = pd.merge(left=unfilt, right = filt, on = 'species').astype({'species':'int'}).astype({'species':'str'})
 
 fig = plt.figure()
 ax = plt.gca()
@@ -71,9 +71,9 @@ gi_to_tax = pd.read_csv(gi_to_tax, sep = '\t', header=None, names=['gi', 'Taxid'
 def get_species_hits(species, grammy, tblat1, gi_to_tax):
     grammy = pd.read_csv(grammy, sep = '\t')
 
-    grammy = grammy[["Taxid", "Species"]]
+    grammy = grammy[["Taxid", "species"]]
 
-    grammy = grammy[grammy["Species"]==int(species)]
+    grammy = grammy[grammy["species"]==int(species)]
 
     df = pd.merge(left=grammy, right = gi_to_tax, on = 'Taxid')
 
@@ -88,7 +88,7 @@ def get_species_hits(species, grammy, tblat1, gi_to_tax):
     #j = 0
 
     for _, line in tblat1_sub.iterrows():
-        refseq = line['refseq']
+        refseq = line['ggi']
         sstart = int(line['sstart'])
         ssend = int(line['send'])
         strand = line['strand']
@@ -169,7 +169,7 @@ def adjust_hits(species, filt_grammy, filt_tblat1, unfilt_grammy, unfilt_tblat1,
     return(bad_rows)
 
 rows_to_remove = []
-for species in df['Species'].to_list():
+for species in df['species'].to_list():
     print(species)
     a = adjust_hits(species, filt_grammy, filt_tblat1, unfiltered_grammy, unfilt_tblat1, gi_to_tax)
     rows_to_remove += a

@@ -153,7 +153,7 @@ rule grammy_cpoor:
 		lld = temp(OUTPUT + '{project}/{sample}/C_poor/{sample}.lld'),
 		btp = temp(OUTPUT + '{project}/{sample}/C_poor/{sample}.btp'),
 		est = temp(OUTPUT + '{project}/{sample}/C_poor/{sample}.est'),
-		gra = OUTPUT + '{project}/{sample}/C_poor/{sample}.gra',
+		gra = temp(OUTPUT + '{project}/{sample}/C_poor/{sample}.gra'),
 		avl = temp(OUTPUT + '{project}/{sample}/C_poor/{sample}.avl')
 	resources: mem_mb = 1
 	shell:

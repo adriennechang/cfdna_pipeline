@@ -23,7 +23,7 @@ NEWDB_NAME = "NCBIGenomes22_human"
 
 ### CHANGE ONLY IF USING NCBIGENOMES06 ###
 ### CANNOT BE USED WITH MAKE_NEWDB ###
-OLD_MET_REF = "FALSE"
+OLD_MET_REF = "TRUE"
 
 ### CHANGE ONLY IF MAKING A NEW METHYLMATRIX ###
 NEW_METHYL = "FALSE"
@@ -69,10 +69,10 @@ GI_TAXID_06 = MP + config['GI_TAXID_06']
 GI_LENGTH_06 = MP + config['GI_LENGTH_06']
 GDT_06 = MP + config['GDT_06']
 LUT_06 = MP + config['LUT_06']
-CT_06 = config['CT_06']
-GA_06 = config['GA_06']
 GDT06_CT = MP + config['GDT06_CT']
 GDT06_GA = MP + config['GDT06_GA']
+GDT06_CT = config['GDT06_CT']
+GDT06_GA = config['GDT06_GA']
 HUMAN_06 = MP +config['HUMAN_06']
 NCBI_22 = MP + config['NCBI_22']
 GI_TAXID_22 = MP + config['GI_TAXID_22']
@@ -81,6 +81,8 @@ GDT_22 = MP + config['GDT_22']
 LUT_22 = MP + config['LUT_22']
 NCBI_CT = MP + config['NCBI_CT']
 NCBI_GA = MP + config['NCBI_GA']
+CT_06 = MP + config['CT_06']
+GA_06 = MP + config['GA_06']
 GDT_CT = MP + config['GDT_CT']
 GDT_GA = MP + config['GDT_GA']
 HUMAN_22 = MP + config['HUMAN_22']
@@ -146,7 +148,6 @@ GRAMMY_POST = MP + config['GRAMMY_POST']
 GRAMMY_RDT = MP + config['GRAMMY_RDT']
 GRAMMY_PRE_ACC = MP + config['GRAMMY_PRE_ACC']
 GRAMMY_PRE_GI = MP + config['GRAMMY_PRE_GI']
-BBDUK = MP + config['BBDUK']
 BISMARK = MP + config['BISMARK']
 BISDEDUP = MP + config['BISDEDUP']
 METHEXT = MP + config['METHEXT']

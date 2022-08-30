@@ -136,7 +136,7 @@ rule grammy_clean:
                 lld = temp(OUTPUT + '{project}/{sample}/unfiltered/{sample}.lld'),
                 btp = temp(OUTPUT + '{project}/{sample}/unfiltered/{sample}.btp'),
                 est = temp(OUTPUT + '{project}/{sample}/unfiltered/{sample}.est'),
-                gra = OUTPUT + '{project}/{sample}/unfiltered/{sample}.gra',
+                gra = temp(OUTPUT + '{project}/{sample}/unfiltered/{sample}.gra'),
                 avl = temp(OUTPUT + '{project}/{sample}/unfilered/{sample}.avl')
 	resources: mem_mb = 1
 	shell:
