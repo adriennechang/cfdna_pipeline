@@ -99,6 +99,7 @@ CFSMOD2 = MP + config['CFSMOD2']
 
 # Scripts
 REFILT = config['REFILT']
+REFILT_GI = config['REFILT_GI']
 FILT_GRAM_BS = config['FILT_GRAM_BS']
 ANN_GRAM_BS = config['ANN_GRAM_BS']
 AGGMETH = config['AGGMETH']

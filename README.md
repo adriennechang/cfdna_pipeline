@@ -71,5 +71,5 @@ Execute the pipeline using snakemake: `snakemake --cores <cores>`. Additional sn
 
 ------------------------------------------------------------------------
 # TO DO:   
-1. Incorporate rules for analyzing bisulfite treated samples
+1. Test analysis pipelines
 2. Incorporate rules needed to generate a MethylMatrix (testing)

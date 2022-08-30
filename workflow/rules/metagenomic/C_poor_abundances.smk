@@ -111,7 +111,7 @@ rule filter_hsblastn_GA:
 		import os.path
 
 		if os.path.exists(human_gis):
-		    cmd = f"grep -f {input.human} {input.blast} | cut -f1 | sort -u > {output.human_blast}"
+		    cmd = f"grep -f {human_gis} {input.blast} | cut -f1 | sort -u > {output.human_blast}"
                     os.system(cmd)
                     human_readIDs = [line.rstrip('\n') for line in open(output.human_blast)]
 		else:

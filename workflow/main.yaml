@@ -1,5 +1,5 @@
 ### LOCATIIONS ###
-MASTER_PATH: /workdir/ac2763/cfDNA_pipeline/
+MASTER_PATH: /workdir/cfDNA_pipeline/
 DATA: data/
 OUTPUT: results/
 SEQ_PREP_TABLE: sequencing_prep.tsv
@@ -62,6 +62,7 @@ CFSMOD2: references/CFS/CFSBS_MODEL_R2.joblib
 
 ### SCRIPTS ###
 REFILT: workflow/scripts/notebook.py
+REFILT_GI: workflow/scripts/notebook_gi.py
 BPBED: workflow/scripts/singleBP_bedGraph2.py
 RMDBL: workflow/scripts/remdouble.py
 DL_GENOMES: workflow/scripts/download_genomes.sh

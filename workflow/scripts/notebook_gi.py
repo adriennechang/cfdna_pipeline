@@ -56,11 +56,17 @@ plt.close()
 
 # In[419]:
 
-filt_tblat1 = pd.read_csv(filt_tblat1_file, sep = '\t', header = None, names = ['read_id', 'gi', 'pident', 'length', 'mismatch', 'gapopen', 'qstart', 'qend', 'sstart', 'send', 'evalue', 'bitscore', 'qlen', 'strand'])
-unfilt_tblat1 = pd.read_csv(unfiltered_tblat1_file, sep = '\t', header = None, names = ['read_id', 'gi', 'pident', 'length', 'mismatch', 'gapopen', 'qstart', 'qend', 'sstart', 'send', 'evalue', 'bitscore', 'qlen', 'strand'])
+filt_tblat1 = pd.read_csv(filt_tblat1_file, sep = '\t', header = None, names = ['read_id', 'ggi', 'pident', 'length', 'mismatch', 'gapopen', 'qstart', 'qend', 'sstart', 'send', 'evalue', 'bitscore', 'qlen', 'strand'])
+tmp = filt_tblat1['ggi'].str.split("|", expand = True)
+filt_tblat1['gi'] = tmp[1]
+filt_tblat1['refseq'] = tmp[3]
+unfilt_tblat1 = pd.read_csv(unfiltered_tblat1_file, sep = '\t', header = None, names = ['read_id', 'ggi', 'pident', 'length', 'mismatch', 'gapopen', 'qstart', 'qend', 'sstart', 'send', 'evalue', 'bitscore', 'qlen', 'strand'])
+tmp = unfilt_tblat1['ggi'].str.split("|", expand = True)
+unfilt_tblat1['gi'] = tmp[1]
+unfilt_tblat1['refseq'] =tmp[3]
 
 tmp = None
-gi_to_tax = pd.read_csv(gi_to_tax, sep = '\t', header=None, names=['delA','gi', 'Taxid','delB'], dtype = {'gi': 'str', 'Taxid':'int'})
+gi_to_tax = pd.read_csv(gi_to_tax, sep = '\t', header=None, names=['gi', 'Taxid'], dtype = {'gi': 'str', 'Taxid':'int'})
 
 def get_species_hits(species, grammy, tblat1, gi_to_tax):
     grammy = pd.read_csv(grammy, sep = '\t')
@@ -82,7 +88,7 @@ def get_species_hits(species, grammy, tblat1, gi_to_tax):
     #j = 0
 
     for _, line in tblat1_sub.iterrows():
-        refseq = line['gi']
+        refseq = line['refseq']
         sstart = int(line['sstart'])
         ssend = int(line['send'])
         strand = line['strand']

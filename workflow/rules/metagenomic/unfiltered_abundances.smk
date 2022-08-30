@@ -67,7 +67,7 @@ rule filter_blast_CT:
 	
 		if os.path.exists(human_gis):
 		    cmd = f"grep -f {human_gis} {input.blast} | cut -f1 | sort -u > {output.human_blast}"
-		    os.system(camd)
+		    os.system(cmd)
 		    human_readIDs = [line.rstrip('\n') for line in open(output.human_blast)]
 		else:
 		    cmd = f" echo 'empty' > {output.human_blast}"
@@ -120,7 +120,6 @@ rule filter_blast_GA:
 rule get_relevant:
         input: CT = OUTPUT + '{project}/{sample}/unfiltered/{sample}_CT.sorted.outfmt6',
                 GA = OUTPUT + '{project}/{sample}/unfiltered/{sample}_GA.sorted.outfmt6',
-                clean = OUTPUT + '{project}/{sample}/C_poor/{sample}.cpoor.fa',
         output: clean = OUTPUT + '{project}/{sample}/unfiltered/{sample}.tblat.1'
         shell:
                 """
@@ -151,8 +150,9 @@ rule grammy_clean:
                         python2.7 {GRAMMY_EM} -c L -b 5 -t .00001 -n 100 {wildcards.sample}.mtx;
                         python2.7 {GRAMMY_POST} {wildcards.sample}.est {use_gdt_GA} {wildcards.sample}.btp;
                         cd ../../../../;
+			touch {output.fa}. {output.rdt} {output.mtx} {output.lld} {output.btp} {output.est} {output.gra} {output.avl};
                 else
-                        touch {output.fa} {output.rdt} {output.mtx} {output.lld} {output.btp} {output.est} {output.gra} {output.avl};
+                       touch {output.fa} {output.rdt} {output.mtx} {output.lld} {output.btp} {output.est} {output.gra} {output.avl};
                 fi
                 """
 

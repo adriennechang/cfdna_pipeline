@@ -5,6 +5,7 @@ if OLD_MET_REF == "FALSE":
         use_gi = GI_TAXID_22
         use_lut = LUT_22
         grammy_pre = GRAMMY_PRE_ACC
+        refilt = REFILT
     else:
         use_db = 'references/' + NEWDB_NAME + '/std/' + NEWDB_NAME + '_std.fna'
         use_gi = 'references/' + NEWDB_NAME +  '/' + NEWDB_NAME + '.acc.taxids'
@@ -12,6 +13,7 @@ if OLD_MET_REF == "FALSE":
         use_gdt = 'references/' + NEWDB_NAME + '/std/' + NEWDB_NAME + '_std'
         use_lut = 'references/' + NEWDB_NAME + '/LUT/taxids_names_lengths_tax.tab'
         grammy_pre = GRAMMY_PRE_ACC
+        refilt = REFILT
 
 if OLD_MET_REF == "TRUE":
     use_db_CT = CT_06
@@ -21,6 +23,7 @@ if OLD_MET_REF == "TRUE":
     human_gis = HUMAN_06
     grammy_pre = GRAMMY_PRE_GI
     use_lut = LUT_06
+    refilt = REFILT_GI
 
 
 
@@ -29,14 +32,16 @@ rule refilter:
 		unfilteredtblat = OUTPUT + '{project}/{sample}/unfiltered/{sample}.tblat.1',
 		filteredgrammy= OUTPUT + '{project}/{sample}/C_poor/{sample}.grammy.tab',
 		filteredtblat = OUTPUT + '{project}/{sample}/C_poor/{sample}.tblat.1',
-	output: filtcomp = OUTPUT + '{project}/{sample}/refiltered/{sample}_unfiltered_vs_filtered_adjblast.png',
+	output: filtcomp = OUTPUT + '{project}/{sample}/refiltered/figures/unfilt_vs_filt_AdjBlast.png',
 		refilt = OUTPUT + '{project}/{sample}/refiltered/{sample}.tblat.1'
 	params: outdir = OUTPUT + '{project}/{sample}/refiltered/'
 	shell:
 		"""
+		mkdir -p {params.outdir};
+		mkdir -p {params.outdir}figures;
 		if [ $(wc -l {input.filteredtblat} | cut -d' ' -f1) -gt 2 ]
 		then
-			python {REFILT}  {use_db} {input.unfilteredgrammy} {input.unfilteredtblat} {input.filteredgrammy} {input.filteredtblat} {use_gi} {params.outdir} {output.refilt};
+			python {refilt}  {use_db} {input.unfilteredgrammy} {input.unfilteredtblat} {input.filteredgrammy} {input.filteredtblat} {use_gi} {params.outdir} {output.refilt};
 		else
 			touch {output.filtcomp};
 			touch {output.refilt}
@@ -46,7 +51,8 @@ rule refilter:
 rule grammy_clean_refiltered:
 	input: cleanfa = OUTPUT + '{project}/{sample}/C_poor/{sample}.cpoor.fa',
 		cleantblat = OUTPUT + '{project}/{sample}/refiltered/{sample}.tblat.1',
-	output: fasta_gz = OUTPUT + '{project}/{sample}/refiltered/{sample}.fasta.gz',
+	output: fasta_gz = OUTPUT + '{project}/{sample}/refiltered/{sample}.fa.gz',
+		fa_gz = temp(OUTPUT + '{project}/{sample}/refiltered/{sample}.fasta.gz'),
 		rdt = temp(OUTPUT + '{project}/{sample}/refiltered/{sample}.rdt'),
 		mtx = temp(OUTPUT + '{project}/{sample}/refiltered/{sample}.mtx'),
 		lld = temp(OUTPUT + '{project}/{sample}/refiltered/{sample}.lld'),
@@ -57,7 +63,7 @@ rule grammy_clean_refiltered:
 	resources: mem_mb = 1
 	shell:
 		"""
-		if [ $(wc -l {input.cleantblat} | cut -d' ' -f1) -gt 1]
+		if [ $(wc -l {input.cleantblat} | cut -d' ' -f1) -gt 1 ]
 		then
 			cut -f1 {input.cleantblat} | sort -u | seqtk subseq {input.cleanfa} - | gzip -1 > {output.fasta_gz};
 			cd {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered;
@@ -80,7 +86,7 @@ rule annotate_grammy_refiltered:
 		anno = OUTPUT + '{project}/{sample}/refiltered/{sample}.grammy.tab'
 	shell:
 		"""
-		if [ $(wc -l {input.tblat} | cut -d' ' -f1) -gt 1]
+		if [ $(wc -l {input.tblat} | cut -d' ' -f1) -gt 1 ]
 		then
 			Rscript {FILT_GRAM_BS} {input.gra} {output.tab} {wildcards.sample};
 			Rscript {ANN_GRAM_BS} {output.tab} {input.tblat} {input.stats} {use_lut} {output.anno}
