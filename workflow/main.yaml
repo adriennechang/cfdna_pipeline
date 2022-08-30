@@ -56,6 +56,7 @@ BOTH_DECON: references/decontamination/both.fa
 
 MEYER: references/adapters/Meyer.fa
 SRSLY: references/adapters/SRSLY.fa
+NEXTERA: references/adapters/NexteraPE-PE.fa
 
 CFSMOD1: references/CFS/CFSBS_MODEL_R1.joblib
 CFSMOD2: references/CFS/CFSBS_MODEL_R2.joblib

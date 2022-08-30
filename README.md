@@ -37,7 +37,7 @@ Before running the cfDNA pipeline:
 ## Running the pipeline  
 *Notes:*  
  *1. Currently, the pipeline only supports analysis of standard sequenced (not bisulfite) samples. The bisulfite pipeline is coming soon!*   
- *2. The pipeline only works for 2x75 sequencing after SRSLY or MEYER library preparation.*    
+ *2. The pipeline only works for 2x75 sequencing after SRSLY, MEYER, or NEXTERA library preparation.*    
 
 The plug and play cfDNA pipeline follows the general steps:  
 1. Copy data in `data/`  
@@ -52,7 +52,7 @@ Copy raw data to `data/<project>/` as `<sample_id>_R[1-2].fastq.gz`. It is recom
  Create a new sequencing prep table (tab-delimited) using the columns below and save a copy to the `prep_tables/` folder with the file structure `sequencing_prep_<project>.tsv`:  
  - **sample_id**: Sample ID that will be used for naming (e.g., `<sample_id>_R[1-2].fastq.gz`)  
  - **project_id**: Project name  
- - **prep_type**: The library preparation type used [MEYER or SRSLY]  
+ - **prep_type**: The library preparation type used [MEYER or SRSLY or NEXTERA]  
  - **path**: The path to the fastq location (e.g., `data/`)  
  - **genome_ver**: The genome version used for the analysis [hg19 or hg38]  
  - **seq_type**:  The sequencing type [standard or bisulfite (wgbs or SIFT-seq) or bowtie (standard-seq for comparison with bisulfite analysis)]   

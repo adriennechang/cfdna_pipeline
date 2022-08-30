@@ -93,6 +93,7 @@ BOTH_DECON = MP + config['BOTH_DECON']
 
 SRSLY = MP + config['SRSLY']
 MEYER = MP + config['MEYER']
+NEXTERA = MP + config['NEXTERA']
 
 CFSMOD1 = MP + config['CFSMOD1']
 CFSMOD2 = MP + config['CFSMOD2']
