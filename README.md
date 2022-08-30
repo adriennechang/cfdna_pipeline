@@ -65,6 +65,7 @@ The default metagenomic reference is NCBIGenomes22, which contains all reference
 2. Adding additional genomes to the metagenomic database:
      1. If additional genomes needed for analysis are missing from the database, set `MAKE_NEWDB = "TRUE"` and give your new database a name `NEWDB_NAME = <new_db_name>`  
      2. Create a new file `"add_assembly_accession.txt"` that contains a single column of assembly accessions (e.g., GCF_002287175.1). The assembly accessions can be obtained from the first column of an `assembly summary.txt` file downloaded from the [NCBI FTP site](https://ftp.ncbi.nlm.nih.gov/genomes/refseq/).  
+3. If you only want to make a new metagenomic reference (and not analyze any samples), change `REF_ONLY = "TRUE"`.  
 
 #### Execute  
 Execute the pipeline using snakemake: `snakemake --cores <cores>`. Additional snakemake options can be found [here](https://snakemake.readthedocs.io/en/stable/executing/cli.html#all-options). Results are found in `results/<project><sample>`.  

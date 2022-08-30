@@ -10,7 +10,7 @@ def get_adapter_file(wcrds):
     if prep == "SRSLY":
         adapt = SRSLY
     if prep == "NEXTERA":
-        adapt = NEXTERA:
+        adapt = NEXTERA
     return(adapt)
 
 def get_sample_info(wcrds):

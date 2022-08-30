@@ -29,9 +29,14 @@ OLD_MET_REF = "FALSE"
 NEW_METHYL = "FALSE"
 NEWMETH_NAME = "meth_test"
 
+### CHANGE ONLY IF YOU ONLY WANT TO MAKE A NEW DB"
+REF_ONLY = "TRUE"
+
 #####################################
 ### DO NOT MODIFY BELOW THIS LINE ###
 #####################################
+if MAKE_NEWDB == "TRUE" and OLD_MET_REF == "TRUE":
+    sys.exit("Error: cannot make a new database and analyze samples using an old reference.")
 
 ### LOAD CONFIG ###
 configfile: 'workflow/main.yaml'
@@ -93,7 +98,6 @@ BOTH_DECON = MP + config['BOTH_DECON']
 
 SRSLY = MP + config['SRSLY']
 MEYER = MP + config['MEYER']
-NEXTERA = MP + config['NEXTERA']
 
 CFSMOD1 = MP + config['CFSMOD1']
 CFSMOD2 = MP + config['CFSMOD2']
@@ -214,13 +218,18 @@ ANALYSIS = STD_ANALYSIS + METH_ANALYSIS + BIS_ANALYSIS
 
 if MAKE_NEWDB == "FALSE" and NEW_METHYL == "FALSE":
     inputs = ANALYSIS
-elif MAKE_NEWDB == "TRUE" and NEW_METHYL == "FALSE":
+elif MAKE_NEWDB == "TRUE" and NEW_METHYL == "FALSE" and REF_ONLY == "FALSE":
     inputs = MAKEREF + ANALYSIS 
+elif MAKENEWDB == "TRUE" and NEW_METHYL == "FALSE" and REF_ONLY == "TRUE":
+    inputs = MAKEREF
 elif MAKE_NEWDB == "FALSE" and NEW_METHYL == "TRUE":
     inputs = MAKE_METHYL 
+elif MAKE_NEWDB == "TRUE" and NEW_METHYL == "TRUE":
+    inputs = MAKEREF + MAKE_METHYL
 else:
-    inputs =  MAKEREF + MAKE_METHYL + ANALYSIS
-
+    inputs = MAKEREF + MAKE_METHYL + ANALYSIS
+    
+    
 rule all:
 	input: inputs
 
