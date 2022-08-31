@@ -30,7 +30,7 @@ NEW_METHYL = "FALSE"
 NEWMETH_NAME = "meth_test"
 
 ### CHANGE ONLY IF YOU ONLY WANT TO MAKE A NEW DB"
-REF_ONLY = "TRUE"
+REF_ONLY = "FALSE"
 
 #####################################
 ### DO NOT MODIFY BELOW THIS LINE ###
@@ -134,6 +134,7 @@ FILTB = config['FILTB']
 CONSOLIDATE = config['CONSOLIDATE']
 
 # Programs
+BBDUK = MP + config['BBDUK']
 DEDUP2 = MP + config['DEDUP2']
 ADD_STR = MP + config['ADD_STR']
 F2S = MP + config['F2S']
