@@ -9,6 +9,7 @@ GENOMES: ['hg19','hg38']
 METHYLOME_TABLE: reference_methylomes.tsv
 
 ### REFERENCES ###
+KALIDX: references/ncbikalindex
 HG19: references/hg19/bwa/hg19.fa
 HG19_CHROMO_SIZES: references/hg19/hg19.chrom.sizes
 HG38: references/hg38/bwa/hg38.fa
@@ -30,16 +31,16 @@ LUT_06: references/NCBIGenomes06/LUTGrammy/taxids_names_lengths_tax.tab
 NCBI_06_CT: references/NCBIGenomes06/CT/NCBIGenomes06_CT.fna
 NCBI_06_GA: references/NCBIGesnoms06/GA/NCBIGenomes06_GA.fna
 
-NCBI_22: references/NCBIGenomes22_human/std/NCBIGenomes22_human_std.fna
-GI_TAXID_22: references/NCBIGenomes22_human/NCBIGenomes22_human.acc.taxids
-GI_LENGTH_22: references/NCBIGenomes22_human/taxids_lengths.txt
-GDT_22: references/NCBIGenomes22_human/std/NCBIGenomes22_human_std
-LUT_22: references/NCBIGenomes22_human/LUT/taxids_names_lengths_tax.tab
-NCBI_GA: references/NCBIGenomes22_human/GA/NCBIGenomes22_human_GA.fna
-NCBI_CT: references/NCBIGenomes22_human/CT/NCBIGenomes22_human_CT.fna
-GDT_GA: references/NCBIGenomes22_human/GA/NCBIGenomes22_human_GA
-GDT_CT: references/NCBIGenomes22_human/CT/NCBIGenomes22_human_CT
-HUMAN_22: references/NCBIGenomes22_human/NCBIGenomes22_human.human.gis
+NCBI_22: references/NCBIGenomes22_human_virus/std/NCBIGenomes22_human_virus_std.fna
+GI_TAXID_22: references/NCBIGenomes22_human_virus/NCBIGenomes22_human_virus.acc.taxids
+GI_LENGTH_22: references/NCBIGenomes22_human_virus/taxids_lengths.txt
+GDT_22: references/NCBIGenomes22_human_virus/std/NCBIGenomes22_human_virus_std
+LUT_22: references/NCBIGenomes22_human_virus/LUT/taxids_names_lengths_tax.tab
+NCBI_GA: references/NCBIGenomes22_human_virus/GA/NCBIGenomes22_human_virus_GA.fna
+NCBI_CT: references/NCBIGenomes22_human_virus/CT/NCBIGenomes22_human_virus_CT.fna
+GDT_GA: references/NCBIGenomes22_human_virus/GA/NCBIGenomes22_human_virus_GA
+GDT_CT: references/NCBIGenomes22_human_virus/CT/NCBIGenomes22_human_virus_CT
+HUMAN_22: references/NCBIGenomes22_human_virus/NCBIGenomes22_human_virus.human.gis
 GA_06: references/NCBIGenomes06/GA/NCBIGenomes06_GA.fna
 CT_06: references/NCBIGenomes06/CT/NCBIGenomes06_CT.fna
 GDT06_GA: references/NCBIGenomes06/GA/NCBIGenomes06_GA

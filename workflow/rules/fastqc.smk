@@ -1,5 +1,5 @@
 rule fastqc:
-	input: i1 = DATA + '{project}/{sample}_R1.fastq.gz',
+	input: i1 =DATA + '{project}/{sample}_R1.fastq.gz',
 		i2 = DATA + '{project}/{sample}_R2.fastq.gz'
 	output: o1 = temp(OUTPUT + '{project}/{sample}/{sample}_R1.fastq'),
             o2 = temp(OUTPUT + '{project}/{sample}/{sample}_R2.fastq'),

@@ -15,4 +15,6 @@ cat $outdir"archaea.txt" $outdir"bacteria.txt" $outdir"fungi.txt" $outdir"viral.
 
 awk -F "\t" '{ if ($5== "representative genome" || $5 == "reference genome" ) print $0}' $outall > $outfile || true;
 
+grep "Human" $outall >> $outfile || true;
+
 LC_ALL=C fgrep -f add_assembly_accession.txt $outall >> $outfile || true;

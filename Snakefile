@@ -18,12 +18,12 @@ import itertools
 # 	    from ftp://ftp.ncbi.nlm.nih.gov/, and
 # 	(3) A NEWDB_NAME is set
 MAKE_NEWDB = "FALSE"
-NEWDB_NAME = "NCBIGenomes22_human"
+NEWDB_NAME = "NCBIGenomes22_human_virus"
 
 
 ### CHANGE ONLY IF USING NCBIGENOMES06 ###
 ### CANNOT BE USED WITH MAKE_NEWDB ###
-OLD_MET_REF = "TRUE"
+OLD_MET_REF = "FALSE"
 
 ### CHANGE ONLY IF MAKING A NEW METHYLMATRIX ###
 NEW_METHYL = "FALSE"
@@ -31,6 +31,9 @@ NEWMETH_NAME = "meth_test"
 
 ### CHANGE ONLY IF YOU ONLY WANT TO MAKE A NEW DB"
 REF_ONLY = "FALSE"
+
+## METAGENOMIC RE-ESTIMATION USING KALLISTO? ##
+KALLISTO = "FALSE"
 
 #####################################
 ### DO NOT MODIFY BELOW THIS LINE ###
@@ -40,7 +43,7 @@ if MAKE_NEWDB == "TRUE" and OLD_MET_REF == "TRUE":
 
 ### LOAD CONFIG ###
 configfile: 'workflow/main.yaml'
-
+DATA=config['DATA']
 MP = config['MASTER_PATH']
 SEQ_PREP_TABLE = config['SEQ_PREP_TABLE']
 METHYLOME_TABLE = config['METHYLOME_TABLE']
@@ -49,7 +52,7 @@ GENOMES = config['GENOMES']
 CHR = config['CHR']
 
 # References
-DATA = config['DATA']
+KALIDX = MP + config['KALIDX']
 HG19 = MP + config['HG19']
 HG19_CHROMO_SIZES = MP + config['HG19_CHROMO_SIZES']
 HG38 = MP + config['HG38']
@@ -174,7 +177,6 @@ samplesInSeqs = {}
 for t in SEQTYPES:
     samplesInSeqs[t] = sample_information.loc[sample_information.seq_type== t].index.tolist()
 
-
 def get_sample_info(wcrds):
     with open(SEQ_PREP_TABLE) as f:
         next(f)
@@ -200,12 +202,15 @@ MAKE_METHYL = [expand('references/reference_methylomes_' + NEWMETH_NAME + '/sing
 
 # Pick pipeline based on sample prep
 if 'standard' in samplesInSeqs.keys(): 
-	STD_ANALYSIS = [ OUTPUT + '{project}/{sample}/{sample}.grammy.tab'.format(sample=sample, project=get_project(sample)) for sample in samplesInSeqs['standard']]
+	if KALLISTO == "FALSE":
+		STD_ANALYSIS = [ OUTPUT + '{project}/{sample}/{sample}.grammy.tab'.format(sample=sample, project=get_project(sample)) for sample in samplesInSeqs['standard']]
+	if KALLISTO == "TRUE":
+		STD_ANALYSIS = [ OUTPUT + '{project}/{sample}/{sample}.bam'.format(sample=sample, project=get_project(sample)) for sample in samplesInSeqs['standard']]
 else:
 	STD_ANALYSIS = []
 
 if 'bisulfite' in samplesInSeqs.keys():
-	METH_ANALYSIS = [OUTPUT + '{project}/{sample}/refiltered/{sample}.grammy.tab'.format(sample=sample, project=get_project(sample)) for sample in samplesInSeqs['bisulfite']]
+	METH_ANALYSIS = [OUTPUT + '{project}/{sample}/refiltered/{sample}.grammy.tab'.format(sample=sample,project=get_project(sample)) for sample in samplesInSeqs['bisulfite']]
 else:
 	METH_ANALYSIS = []
 
@@ -222,7 +227,7 @@ if MAKE_NEWDB == "FALSE" and NEW_METHYL == "FALSE":
     inputs = ANALYSIS
 elif MAKE_NEWDB == "TRUE" and NEW_METHYL == "FALSE" and REF_ONLY == "FALSE":
     inputs = MAKEREF + ANALYSIS 
-elif MAKENEWDB == "TRUE" and NEW_METHYL == "FALSE" and REF_ONLY == "TRUE":
+elif MAKE_NEWDB == "TRUE" and NEW_METHYL == "FALSE" and REF_ONLY == "TRUE":
     inputs = MAKEREF
 elif MAKE_NEWDB == "FALSE" and NEW_METHYL == "TRUE":
     inputs = MAKE_METHYL 
@@ -263,6 +268,7 @@ include: 'workflow/rules/merge.smk'
 include: 'workflow/rules/alignment/bwa.smk'
 include: 'workflow/rules/stats/align_stats.smk'
 include: 'workflow/rules/metagenomic/hsblastn.smk'
+include: 'workflow/rules/metagenomic/kallisto.smk'
 
 ### BISULFITE ONLY RULES ###
 include: 'workflow/rules/trim/bbduk.smk'
