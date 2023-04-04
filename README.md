@@ -1,6 +1,6 @@
 # cfDNA_pipeline
 Author: Adrienne Chang  
-Created: 8/22/2022
+Created: 8/22/2022  
 Updated: 4/3/2023
 
 *** If you copied the pipeline before April 2023, rerun the "Copy the pipeline" steps to add grammy support via Docker. The changes made include 1) a Docker container containing GRAMMy, 2) a symlink to mount references, and 3) an updated grammy rule for the pipeline. ***
@@ -72,6 +72,23 @@ The default metagenomic reference is NCBIGenomes22, which contains all reference
 
 #### Execute  
 Execute the pipeline using snakemake: `snakemake --cores <cores>`. Additional snakemake options can be found [here](https://snakemake.readthedocs.io/en/stable/executing/cli.html#all-options). Results are found in `results/<project><sample>`.  
+
+#### To update the Docker image for GRAMMy
+1. Run an interactive Docker container
+`docker1 run -it <repository>`
+2. Make necessary changes.
+3. Exit using
+ `ctrl-p; ctrl-q`.
+4. List the new docker container ID using
+`docker1 ps`
+5. Update the image
+ `docker1 commit <container ID>`
+6. Find the new docker image ID using
+`docker1 images`.
+7. Retag the new image
+`docker1 tag <image ID> <repository>`
+8. Export the docker image
+`docker1 save <repository> > <file>.tar`  
 
 ------------------------------------------------------------------------
 # TO DO:   
