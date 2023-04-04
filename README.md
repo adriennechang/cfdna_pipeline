@@ -73,7 +73,7 @@ The default metagenomic reference is NCBIGenomes22, which contains all reference
 #### Execute  
 Execute the pipeline using snakemake: `snakemake --cores <cores>`. Additional snakemake options can be found [here](https://snakemake.readthedocs.io/en/stable/executing/cli.html#all-options). Results are found in `results/<project><sample>`.  
 
-#### To update the Docker image for GRAMMy
+## To update the Docker image for GRAMMy
 1. Run an interactive Docker container
 `docker1 run -it <repository>`
 2. Make necessary changes.
