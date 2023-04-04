@@ -117,11 +117,32 @@ rule grammy:
                                         grammy_post {wildcards.sample}.est /{use_gdt} {wildcards.sample}.btp" 
                fi
 
+		cp {output.nonhumanfa_gz} results/{wildcards.project}/{wildcards.sample}/tmp_{output.nonhumanfa_gz};
+		cp {output.nonhumanfasta_gz} results/{wildcards.project}/{wildcards.sample}/tmp_{output.nonhumanfasta_gz};
+		cp {output.rdt} results/{wildcards.project}/{wildcards.sample}/tmp_{output.rdt};
+		cp {output.mtx} results/{wildcards.project}/{wildcards.sample}/tmp_{output.mtx};
+		cp {output.lld} results/{wildcards.project}/{wildcards.sample}/tmp_{output.lld};
+		cp {output.btp} results/{wildcards.project}/{wildcards.sample}/tmp_{output.btp};
+		cp {output.est} results/{wildcards.project}/{wildcards.sample}/tmp_{output.est};
+		cp {output.gra} results/{wildcards.project}/{wildcards.sample}/tmp_{output.gra};
+		cp {output.avl} results/{wildcards.project}/{wildcards.sample}/tmp_{output.avl};
+
+		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.nonhumanfa_gz} {output.nonhumanfa_gz};
+		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.nonhumanfasta_gz} {output.nonhumanfasta_gz};
+		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.rdt} {output.rdt};
+		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.mtx} {output.mtx};
+		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.lld} {output.lld};
+		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.btp} {output.btp};
+		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.est} {output.est};
+		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.gra} {output.gra};
+		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.avl} {output.avl};
 
 		cat {output.gra} | {TRANSPOSE} | \
                         {FILTER} -c 1 -mins 0 | \
                         {ADD_COL} -b -s "{wildcards.sample}" > {output.tab};
 
+		cp {output.tab} results/{wildcards.project}/{wildcards.sample}/tmp_{output.tab};
+		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.tab} {output.tab};
 		"""
 
 rule grammy_annotate:

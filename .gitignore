@@ -14,3 +14,4 @@ workflow/software/Bismark-0.22.1
 prep_tables/
 metadata/
 sequencing_prep.tsv
+grammy.tar*
