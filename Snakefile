@@ -9,6 +9,7 @@ import pandas as pd
 from natsort import natsorted
 import itertools
 
+
 ### Updating the metagenomic database ###
 # A new metagenomic database will only be created if
 # 	(1) MAKE_NEWDB is set to "TRUE", and
@@ -70,24 +71,22 @@ REFERENCE_METHYLOMES = config['REFERENCE_METHYLOMES']
 NCBI_06 = MP + config['NCBI_06']
 GI_TAXID_06 = MP + config['GI_TAXID_06']
 GI_LENGTH_06 = MP + config['GI_LENGTH_06']
-GDT_06 = MP + config['GDT_06']
+GDT_06 =  config['GDT_06']
 LUT_06 = MP + config['LUT_06']
-GDT06_CT = MP + config['GDT06_CT']
-GDT06_GA = MP + config['GDT06_GA']
-GDT06_CT = config['GDT06_CT']
-GDT06_GA = config['GDT06_GA']
+GDT06_CT =  config['GDT06_CT']
+GDT06_GA =  config['GDT06_GA']
 HUMAN_06 = MP +config['HUMAN_06']
 NCBI_22 = MP + config['NCBI_22']
 GI_TAXID_22 = MP + config['GI_TAXID_22']
 GI_LENGTH_22 = MP + config['GI_LENGTH_22']
-GDT_22 = MP + config['GDT_22']
+GDT_22 = config['GDT_22']
 LUT_22 = MP + config['LUT_22']
 NCBI_CT = MP + config['NCBI_CT']
 NCBI_GA = MP + config['NCBI_GA']
 CT_06 = MP + config['CT_06']
 GA_06 = MP + config['GA_06']
-GDT_CT = MP + config['GDT_CT']
-GDT_GA = MP + config['GDT_GA']
+GDT_CT = config['GDT_CT']
+GDT_GA = config['GDT_GA']
 HUMAN_22 = MP + config['HUMAN_22']
 NCBI_06_CT = MP + config['NCBI_06_CT']
 NCBI_06_GA = MP + config['NCBI_06_GA']
@@ -103,6 +102,7 @@ BOTH_DECON = MP + config['BOTH_DECON']
 
 SRSLY = MP + config['SRSLY']
 MEYER = MP + config['MEYER']
+NEXTERA = MP + config['NEXTERA']
 
 CFSMOD1 = MP + config['CFSMOD1']
 CFSMOD2 = MP + config['CFSMOD2']
@@ -267,7 +267,8 @@ include: 'workflow/rules/trim/trimmomatic.smk'
 include: 'workflow/rules/merge.smk'
 include: 'workflow/rules/alignment/bwa.smk'
 include: 'workflow/rules/stats/align_stats.smk'
-include: 'workflow/rules/metagenomic/hsblastn.smk'
+#include: 'workflow/rules/metagenomic/hsblastn.smk'
+include: 'workflow/rules/metagenomic/hsblastn_docker.smk'
 include: 'workflow/rules/metagenomic/kallisto.smk'
 
 ### BISULFITE ONLY RULES ###

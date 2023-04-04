@@ -2,5 +2,15 @@ references/
 data/
 results/
 logs/
-workflow/software/
+workflow/software/CrossMap-0.2.7
+workflow/software/metilene_v0.2-7
+workflow/software/bbmap
+workflow/software/perl
+workflow/software/Trimmomatic-0.32
+workflow/software/hs-blastn-src
+workflow/software/Bismark-0.22.1
 .snakemake/
+*.fna*
+prep_tables/
+metadata/
+sequencing_prep.tsv

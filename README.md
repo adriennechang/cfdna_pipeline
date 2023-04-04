@@ -1,6 +1,9 @@
 # cfDNA_pipeline
 Author: Adrienne Chang  
 Created: 8/22/2022
+Updated: 4/3/2023
+
+*** If you copied the pipeline before April 2023, rerun the "Copy the pipeline" steps to add grammy support via Docker. The changes made include 1) a Docker container containing GRAMMy, 2) a symlink to mount references, and 3) an updated grammy rule for the pipeline. ***
 
 ## Setup  
 Before running the cfDNA pipeline:  
