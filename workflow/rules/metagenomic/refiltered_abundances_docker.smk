@@ -66,12 +66,46 @@ rule grammy_clean_refiltered:
 		if [ $(wc -l {input.cleantblat} | cut -d' ' -f1) -gt 1 ]
 		then
 			cut -f1 {input.cleantblat} | sort -u | seqtk subseq {input.cleanfa} - | gzip -1 > {output.fasta_gz};
-			cd {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered;
-			python2.7 {GRAMMY_RDT} -t illumina . .;
-			python2.7 {grammy_pre} -q "40,75,-5" {wildcards.sample} {use_gdt};
-			python2.7 {GRAMMY_EM} -c L -b 5 -t .00001 -n 100 {wildcards.sample}.mtx;
-			python2.7 {GRAMMY_POST} {wildcards.sample}.est {use_gdt} {wildcards.sample}.btp;
-			cd ../../../../;
+
+			if [[ {OLD_MET_REF} == "FALSE" ]]
+			then
+				docker1 run -v `pwd`{OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered:/data -v `pwd`/main_reference:/references biohpc_ac2763/grammy \
+					bash -c "cd /data && \
+						grammy_rdt -t illumina . . && \
+						grammy_pre_acc -q "40,75,-5" {wildcards.sample} /{use_gdt} && \
+						grammy_em -c L -b 5 -t .00001 -n 100 {wildcards.sample}.mtx && \
+						grammy_post {wildcards.sample}.est /{use_gdt} {wildcards.sample}.btp"
+			else
+				docker1 run -v `pwd`{OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered:/data -v `pwd`/main_reference:/references biohpc_ac2763/grammy \
+					bash -c "cd /data && \
+							grammy_rdt -t illumina . . && \
+							grammy_pre -q "40,75,-5" {wildcards.sample} /{use_gdt} && \
+							grammy_em -c L -b 5 -t .00001 -n 100 {wildcards.sample}.mtx && \
+							grammy_post {wildcards.sample}.est /{use_gdt} {wildcards.sample}.btp"
+			fi
+
+
+		cp {output.fasta_gz} {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.fasta_gz};
+		cp {output.fa_gz} {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.fa_gz};
+		cp {output.rdt} {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.rdt};
+		cp {output.mtx} {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.mtx};
+		cp {output.lld} {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.lld};
+		cp {output.btp} {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.btp};
+		cp {output.est} {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.est};
+		cp {output.gra} {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.gra};
+		cp {output.avl} {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.avl};
+
+		mv {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.fasta_gz} {output.fasta_gz};
+		mv {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.fa_gz} {output.fa_gz};
+		mv {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.rdt} {output.rdt};
+		mv {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.mtx} {output.mtx};
+		mv {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.lld} {output.lld};
+		mv {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.btp} {output.btp};
+		mv {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.est} {output.est};
+		mv {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.gra} {output.gra};
+		mv {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.avl} {output.avl};
+
+
 		else
 			touch {output.fasta_gz};
 			touch {output.rdt} {output.mtx} {output.lld} {output.btp} {output.est} {output.gra} {output.avl};
