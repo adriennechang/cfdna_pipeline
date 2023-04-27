@@ -116,6 +116,7 @@ rule grammy:
                                         grammy_em -c L -b 5 -t .00001 -n 100 {wildcards.sample}.mtx && \
                                         grammy_post {wildcards.sample}.est /{use_gdt} {wildcards.sample}.btp" 
                fi
+		mkdir -p tmp_{OUTPUT};
 
 		cp {output.nonhumanfa_gz} results/{wildcards.project}/{wildcards.sample}/tmp_{output.nonhumanfa_gz};
 		cp {output.nonhumanfasta_gz} results/{wildcards.project}/{wildcards.sample}/tmp_{output.nonhumanfasta_gz};
