@@ -179,6 +179,8 @@ rule grammy_cpoor:
 						grammy_post {wildcards.sample}.est /{use_gdt_GA} {wildcards.sample}.btp"
 			fi
 
+			mkdir -p results/{wildcards.project}/{wildcards.sample}/C_poor/tmp_results/{wildcards.project}/{wildcards.sample}/C_poor;
+
 			cp {output.fa} {OUTPUT}{wildcards.project}/{wildcards.sample}/C_poor/tmp_{output.fa};
 			cp {output.fasta} {OUTPUT}{wildcards.project}/{wildcards.sample}/C_poor/tmp_{output.fasta};
 			cp {output.rdt} {OUTPUT}{wildcards.project}/{wildcards.sample}/C_poor/tmp_{output.rdt};
@@ -198,6 +200,8 @@ rule grammy_cpoor:
 			mv {OUTPUT}{wildcards.project}/{wildcards.sample}/C_poor/tmp_{output.est} {output.ets};
 			mv {OUTPUT}{wildcards.project}/{wildcards.sample}/C_poor/tmp_{output.gra} {output.gra};
 			mv {OUTPUT}{wildcards.project}/{wildcards.sample}/C_poor/tmp_{output.avl} {output.avl};
+
+			rm -r results/{wildcards.project}/{wildcards.sample}/C_poor/tmp_results/
 
 		else
 			touch {output.fa} {output.rdt} {output.mtx} {output.lld} {output.btp} {output.est} {output.gra} {output.avl};

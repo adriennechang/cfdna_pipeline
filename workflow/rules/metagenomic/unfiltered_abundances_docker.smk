@@ -161,6 +161,8 @@ rule grammy_clean:
 						grammy_em -c L -b 5 -t .00001 -n 100 {wildcards.sample}.mtx && \
 						grammy_post {wildcards.sample}.est /{use_gdt_GA} {wildcards.sample}.btp"
 			fi
+
+			mkdir -p results/{wildcards.project}/{wildcards.sample}/unfiltered/tmp_results/{wildcards.project}/{wildcards.sample}/unfiltered/;
 		
 			cp {output.fa} {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.fa};
 			cp {output.fasta} {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.fasta};
@@ -181,6 +183,8 @@ rule grammy_clean:
 			mv {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.est} {output.est};
 			mv {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.gra} {output.gra};
 			mv {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.avl} {output.avl};
+
+			rm -r results/{wildcards.project}/{wildcards.sample}/unfiltered/tmp_results/
 
                 else
                        touch {output.fa} {output.rdt} {output.mtx} {output.lld} {output.btp} {output.est} {output.gra} {output.avl};

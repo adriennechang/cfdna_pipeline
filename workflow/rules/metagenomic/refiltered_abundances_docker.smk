@@ -84,6 +84,8 @@ rule grammy_clean_refiltered:
 							grammy_post {wildcards.sample}.est /{use_gdt} {wildcards.sample}.btp"
 			fi
 
+		mkdir -p results/{wildcards.project}/{wildcards.sample}/refiltered/tmp_results/{wildcards.project}/{wildcards.sample}/refiltered/;
+
 
 		cp {output.fasta_gz} {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.fasta_gz};
 		cp {output.fa_gz} {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.fa_gz};
@@ -105,7 +107,7 @@ rule grammy_clean_refiltered:
 		mv {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.gra} {output.gra};
 		mv {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.avl} {output.avl};
 
-
+		rm -r results/{wildcards.project}/{wildcards.sample}/refiltered/tmp_results/
 		else
 			touch {output.fasta_gz};
 			touch {output.rdt} {output.mtx} {output.lld} {output.btp} {output.est} {output.gra} {output.avl};

@@ -93,7 +93,7 @@ rule grammy:
 		est = temp(OUTPUT + '{project}/{sample}/{sample}.est'),
 		gra = temp(OUTPUT + '{project}/{sample}/{sample}.gra'),
 		avl = temp(OUTPUT + '{project}/{sample}/{sample}.avl'),
-		tab = temp(OUTPUT + '{project}/{sample}/{sample}.tab')
+		tab = temp(OUTPUT + '{project}/{sample}/{sample}.tab'),
 	resources: mem_mb=1
 	shell:
 		"""
@@ -116,7 +116,7 @@ rule grammy:
                                         grammy_em -c L -b 5 -t .00001 -n 100 {wildcards.sample}.mtx && \
                                         grammy_post {wildcards.sample}.est /{use_gdt} {wildcards.sample}.btp" 
                fi
-		mkdir -p tmp_{OUTPUT};
+		mkdir -p results/{wildcards.project}/{wildcards.sample}/tmp_results/{wildcards.project}/{wildcards.sample};
 
 		cp {output.nonhumanfa_gz} results/{wildcards.project}/{wildcards.sample}/tmp_{output.nonhumanfa_gz};
 		cp {output.nonhumanfasta_gz} results/{wildcards.project}/{wildcards.sample}/tmp_{output.nonhumanfasta_gz};
@@ -137,6 +137,8 @@ rule grammy:
 		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.est} {output.est};
 		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.gra} {output.gra};
 		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.avl} {output.avl};
+
+		rm -r results/{wildcards.project}/{wildcards.sample}/tmp_results/
 
 		cat {output.gra} | {TRANSPOSE} | \
                         {FILTER} -c 1 -mins 0 | \
