@@ -128,15 +128,15 @@ rule grammy:
 		cp {output.gra} results/{wildcards.project}/{wildcards.sample}/tmp_{output.gra};
 		cp {output.avl} results/{wildcards.project}/{wildcards.sample}/tmp_{output.avl};
 
-		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.nonhumanfa_gz} {output.nonhumanfa_gz};
-		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.nonhumanfasta_gz} {output.nonhumanfasta_gz};
-		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.rdt} {output.rdt};
-		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.mtx} {output.mtx};
-		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.lld} {output.lld};
-		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.btp} {output.btp};
-		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.est} {output.est};
-		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.gra} {output.gra};
-		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.avl} {output.avl};
+		mv -f results/{wildcards.project}/{wildcards.sample}/tmp_{output.nonhumanfa_gz} {output.nonhumanfa_gz};
+		mv -f results/{wildcards.project}/{wildcards.sample}/tmp_{output.nonhumanfasta_gz} {output.nonhumanfasta_gz};
+		mv -f results/{wildcards.project}/{wildcards.sample}/tmp_{output.rdt} {output.rdt};
+		mv -f results/{wildcards.project}/{wildcards.sample}/tmp_{output.mtx} {output.mtx};
+		mv -f results/{wildcards.project}/{wildcards.sample}/tmp_{output.lld} {output.lld};
+		mv -f results/{wildcards.project}/{wildcards.sample}/tmp_{output.btp} {output.btp};
+		mv -f results/{wildcards.project}/{wildcards.sample}/tmp_{output.est} {output.est};
+		mv -f results/{wildcards.project}/{wildcards.sample}/tmp_{output.gra} {output.gra};
+		mv -f results/{wildcards.project}/{wildcards.sample}/tmp_{output.avl} {output.avl};
 
 		rm -r results/{wildcards.project}/{wildcards.sample}/tmp_results/
 
