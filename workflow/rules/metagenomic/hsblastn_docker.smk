@@ -144,8 +144,6 @@ rule grammy:
                         {FILTER} -c 1 -mins 0 | \
                         {ADD_COL} -b -s "{wildcards.sample}" > {output.tab};
 
-		cp {output.tab} results/{wildcards.project}/{wildcards.sample}/tmp_{output.tab};
-		mv results/{wildcards.project}/{wildcards.sample}/tmp_{output.tab} {output.tab};
 		"""
 
 rule grammy_annotate:

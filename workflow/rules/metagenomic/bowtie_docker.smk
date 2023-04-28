@@ -142,8 +142,10 @@ rule grammy_clean_stds:
 						grammy_rdt -t illumina . . && \
 						grammy_pre -q "40,75,-5" {wildcards.sample} /{use_gdt} && \
 						grammy_em -c L -b 5 -t .00001 -n 100 {wildcards.sample.mtx && \
-						grammy_post {wildcards.sample}.est /{use_gdt} {wildcards.sample}.bt["
+						grammy_post {wildcards.sample}.est /{use_gdt} {wildcards.sample}.btp"
 			fi
+
+			mkdir -p {OUTPUT}/{wildcards.project}/{wildcards.sample}/blast/tmp_{OUTPUT}/{wildcards.project}/{wildcards.sample}/blast
 
 			cp {output.fa_gz} {OUTPUT}{wildcards.project}/{wildcards.sample}/blast/tmp_{output.fa_gz};
 			cp {output.fasta_gz} {OUTPUT}{wildcards.project}/{wildcards.sample}/blast/tmp_{output.fasta_gz};
@@ -165,6 +167,7 @@ rule grammy_clean_stds:
 			mv {OUTPUT}{wildcards.project}/{wildcards.sample}/blast/tmp_{output.gra} {output.gra};
 			mv {OUTPUT}{wildcards.project}/{wildcards.sample}/blast/tmp_{output.avl} {output.avl};
 
+			rm -r {OUTPUT}/{wildcards.project}/{wildcards.sample}/blast/tmp_{OUTPUT}
 
 
 		else
