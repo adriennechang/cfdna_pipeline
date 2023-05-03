@@ -97,15 +97,15 @@ rule grammy_clean_refiltered:
 		cp {output.gra} {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.gra};
 		cp {output.avl} {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.avl};
 
-		mv {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.fasta_gz} {output.fasta_gz};
-		mv {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.fa_gz} {output.fa_gz};
-		mv {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.rdt} {output.rdt};
-		mv {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.mtx} {output.mtx};
-		mv {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.lld} {output.lld};
-		mv {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.btp} {output.btp};
-		mv {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.est} {output.est};
-		mv {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.gra} {output.gra};
-		mv {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.avl} {output.avl};
+		mv -f {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.fasta_gz} {output.fasta_gz};
+		mv -f {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.fa_gz} {output.fa_gz};
+		mv -f {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.rdt} {output.rdt};
+		mv -f {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.mtx} {output.mtx};
+		mv -f {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.lld} {output.lld};
+		mv -f {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.btp} {output.btp};
+		mv -f {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.est} {output.est};
+		mv -f {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.gra} {output.gra};
+		mv -f {OUTPUT}{wildcards.project}/{wildcards.sample}/refiltered/tmp_{output.avl} {output.avl};
 
 		rm -r results/{wildcards.project}/{wildcards.sample}/refiltered/tmp_results/
 		else

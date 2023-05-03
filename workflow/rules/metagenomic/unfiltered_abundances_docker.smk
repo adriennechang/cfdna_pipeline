@@ -174,15 +174,15 @@ rule grammy_clean:
 			cp {output.gra} {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.gra};
 			cp {output.avl} {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.avl};
 
-			mv {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.fa} {output.fa};
-			mv {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.fasta} {output.fasta};
-			mv {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.rdt} {output.rdt};
-			mv {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.lld} {output.lld};
-			mv {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.mtx} {output..mtx};
-			mv {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.btp} {output.btp};
-			mv {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.est} {output.est};
-			mv {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.gra} {output.gra};
-			mv {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.avl} {output.avl};
+			mv -f {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.fa} {output.fa};
+			mv -f  {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.fasta} {output.fasta};
+			mv -f {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.rdt} {output.rdt};
+			mv -f {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.lld} {output.lld};
+			mv -f {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.mtx} {output..mtx};
+			mv -f {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.btp} {output.btp};
+			mv -f {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.est} {output.est};
+			mv -f {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.gra} {output.gra};
+			mv -f {OUTPUT}{wildcards.project}/{wildcards.sample}/unfiltered/tmp_{output.avl} {output.avl};
 
 			rm -r results/{wildcards.project}/{wildcards.sample}/unfiltered/tmp_results/
 
